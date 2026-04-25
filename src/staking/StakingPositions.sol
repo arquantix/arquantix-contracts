@@ -10,7 +10,7 @@ import { SafeCastLibrary } from "src/protocol-v2/libraries/SafeCastLibrary.sol";
 // Extensions
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
-import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 // Interfaces
 import { IStakingPositions } from "src/protocol-v2/interfaces/IStakingPositions.sol";
 import { IStakingRewardsDistributor } from "src/protocol-v2/interfaces/IStakingRewardsDistributor.sol";
