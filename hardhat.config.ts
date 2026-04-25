@@ -48,14 +48,6 @@ if (forkTarget === "mainnet" && (!MAINNET_RPC_URL || !ETHERSCAN_API_KEY))
   throw Error("Mainnet config not found in environment variables");
 if (forkTarget === "base" && (!BASE_RPC_URL || !ETHERSCAN_API_KEY))
   throw Error("Base config not found in environment variables");
-if (forkTarget === "sonic" && (!SONIC_RPC_URL || !ETHERSCAN_API_KEY))
-  throw Error("Sonic config not found in environment variables");
-if (forkTarget === "hedera" && (!HEDERA_RPC_URL || !HEDERA_VERIFY_API_KEY))
-  throw Error("Hedera config not found in environment variables");
-if (forkTarget === "linea" && (!LINEASCAN_RPC_URL || !ETHERSCAN_API_KEY))
-  throw Error("LineaScan config not found in environment variables");
-if (forkTarget === "arbitrum" && (!ARBITRUM_RPC_URL || !ETHERSCAN_API_KEY))
-  throw Error("Arbitrum config not found in environment variables");
 
 /// @dev Create the temp file to write token deployments
 if (!fs.existsSync("temp/deployedTokens.json")) {
@@ -96,46 +88,6 @@ export const networkConfigs: { [key: string]: NetworkConfig } = {
     apiURL: "https://api.etherscan.io/v2/api?chainid=8453",
     browserURL: "https://basescan.org",
     deploy: ["deployers/protocol-v2/base"],
-  },
-  sonic: {
-    name: "sonic",
-    chainId: 146,
-    rpcUrl: SONIC_RPC_URL || "",
-    verifyApiKey: ETHERSCAN_API_KEY || "",
-    forkingBlock: SONIC_FORKING_BLOCK,
-    apiURL: "https://api.etherscan.io/v2/api?chainid=146",
-    browserURL: "https://sonicscan.org",
-    deploy: ["deployers/protocol-v2/sonic"],
-  },
-  hedera: {
-    name: "hedera",
-    chainId: 295,
-    rpcUrl: HEDERA_RPC_URL || "",
-    verifyApiKey: HEDERA_VERIFY_API_KEY || "",
-    forkingBlock: HEDERA_FORKING_BLOCK,
-    apiURL: "https://server-verify.hashscan.io",
-    browserURL: "https://hashscan.io/mainnet/",
-    deploy: ["deployers/protocol-v2/hedera"],
-  },
-  arbitrum: {
-    name: "arbitrumOne",
-    chainId: 42161,
-    rpcUrl: ARBITRUM_RPC_URL || "",
-    verifyApiKey: ETHERSCAN_API_KEY || "",
-    forkingBlock: ARBITRUM_FORKING_BLOCK,
-    apiURL: "https://api.etherscan.io/v2/api?chainid=42161",
-    browserURL: "https://arbiscan.io",
-    deploy: ["deployers/protocol-v2/arbitrum"],
-  },
-  linea: {
-    name: "linea",
-    chainId: 59144,
-    rpcUrl: LINEASCAN_RPC_URL || "",
-    verifyApiKey: ETHERSCAN_API_KEY || "",
-    forkingBlock: LINEASCAN_FORKING_BLOCK,
-    apiURL: "https://api.etherscan.io/v2/api?chainid=59144",
-    browserURL: "https://lineascan.build",
-    deploy: ["deployers/protocol-v2/linea"],
   },
 };
 
