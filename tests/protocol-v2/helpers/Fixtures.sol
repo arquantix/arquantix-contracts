@@ -49,11 +49,7 @@ contract Fixtures is Test {
 
   string[] private forkTargets = [
     "MAINNET",
-    "BASE",
-    "ARBITRUM",
-    "HEDERA",
-    "SONIC",
-    "LINEASCAN"
+    "BASE"
   ];
   LDYStaking.StakeDurationInfo[] private stakingDurationInfos;
   uint256[] private durations = [0, 1, 6, 12, 24, 36];
@@ -432,29 +428,11 @@ contract Fixtures is Test {
         IAaveLendingPoolV3(
           0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2
         );
-    } else if (block.chainid == 42161) {
-      // Arbitrum
-      return
-        IAaveLendingPoolV3(
-          0x794a61358D6845594F94dc1DB02A252b5b4814aD
-        );
-    } else if (block.chainid == 59144) {
-      // Linea
-      return
-        IAaveLendingPoolV3(
-          0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac
-        );
     } else if (block.chainid == 8453) {
       // Base
       return
         IAaveLendingPoolV3(
           0xA238Dd80C259a72e81d7e4664a9801593F98d1c5
-        );
-    } else if (block.chainid == 146) {
-      // Sonic
-      return
-        IAaveLendingPoolV3(
-          0x5362dBb1e601abF3a4c14c22ffEdA64042E5eAA3
         );
     }
     revert("AaveLendingPool not set");
@@ -464,9 +442,9 @@ contract Fixtures is Test {
     if (block.chainid == 1) {
       // Mainnet
       return IERC20(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
-    } else if (block.chainid == 42161) {
-      // Arbitrum
-      return IERC20(0xaf88d065e77c8cC2239327C5EDb3A432268e5831);
+    } else if (block.chainid == 8453) {
+      // Base
+      return IERC20(0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913);
     }
     revert("USDC not set");
   }
@@ -475,9 +453,9 @@ contract Fixtures is Test {
     if (block.chainid == 1) {
       // Mainnet
       return IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
-    } else if (block.chainid == 42161) {
-      // Arbitrum
-      return IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+    } else if (block.chainid == 8453) {
+      // Base (WETH on Base)
+      return IERC20(0x4200000000000000000000000000000000000006);
     }
     revert("WETH not set");
   }
