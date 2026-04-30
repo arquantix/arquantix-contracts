@@ -13,10 +13,6 @@ import { Ownable2StepUpgradeable } from "@openzeppelin/contracts-upgradeable/acc
  * @notice Holds the address of a global owner account shared by all contracts of the
  * Ledgity Yield's codebase.
  *
- * @dev Specifically, some contracts within the codebase inherit from the
- * GlobalOwnableUpgradeable abstract contract. This provides them with an overriden
- * owner() function that retrieves the owner's address from this contract instead.
- *
  * @dev For further details, see "GlobalOwner" section of whitepaper.
  * @custom:security-contact security@ledgity.com
  */

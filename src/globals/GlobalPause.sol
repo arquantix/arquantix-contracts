@@ -3,8 +3,9 @@ pragma solidity 0.8.18;
 
 import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import { UUPSUpgradeable } from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import { PausableUpgradeable } from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-import { GlobalOwnableUpgradeable } from "./abstracts/GlobalOwnableUpgradeable.sol";
+import { GlobalOwner } from "./GlobalOwner.sol";
 
 /**
  * @title GlobalPause
@@ -14,19 +15,18 @@ import { GlobalOwnableUpgradeable } from "./abstracts/GlobalOwnableUpgradeable.s
  * @notice Holds a global pause state shared by all contracts of the Ledgity Yield
  * codebase.
  *
- * @dev Specifically, some contracts within the codebase inherit from the
- * GlobalPausableUpgradeable abstract contract. This provides them with an overriden
- * paused() function that retrieves the pause state from this contract instead.
- *
  * @dev For further details, see "GlobalPause" section of whitepaper.
  * @custom:security-contact security@ledgity.com
  */
 contract GlobalPause is
   Initializable,
   UUPSUpgradeable,
-  GlobalOwnableUpgradeable,
+  OwnableUpgradeable,
   PausableUpgradeable
 {
+  /// @notice Reference to the GlobalOwner contract
+  GlobalOwner public globalOwner;
+
   /**
    * @notice Prevents implementation contract from being initialized as recommended by
    * OpenZeppelin.
@@ -44,9 +44,38 @@ contract GlobalPause is
    * @param globalOwner_ The address of the GlobalOwner contract.
    */
   function initialize(address globalOwner_) public initializer {
-    __GlobalOwnable_init(globalOwner_);
+    __Ownable_init();
     __Pausable_init();
     __UUPSUpgradeable_init();
+    globalOwner = GlobalOwner(globalOwner_);
+  }
+
+  /**
+   * @notice Override of OwnableUpgradeable.owner() that retrieves the owner's address
+   * from the GlobalOwner contract instead.
+   * @return The address of the owner
+   */
+  function owner() public view override returns (address) {
+    return globalOwner.owner();
+  }
+
+  /**
+   * @notice Override of OwnableUpgradeable.transferOwnership() that always reverts.
+   * Ownership is managed by the GlobalOwner contract and must be modified there.
+   */
+  function transferOwnership(
+    address newOwner
+  ) public override onlyOwner {
+    newOwner; // Silence unused variable compiler warning
+    revert("Ownership is managed by GlobalOwner contract");
+  }
+
+  /**
+   * @notice Override of OwnableUpgradeable.renounceOwnership() that always reverts.
+   * Ownership is managed by the GlobalOwner contract and must be modified there.
+   */
+  function renounceOwnership() public override onlyOwner {
+    revert("Ownership is managed by GlobalOwner contract");
   }
 
   /**
