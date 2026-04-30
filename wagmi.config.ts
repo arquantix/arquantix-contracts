@@ -20,26 +20,13 @@ type DeploymentsType = {
 
 /// @dev Contracts whitelist
 const contractList = [
-  // v1
-  "GlobalBlacklist",
   "GlobalOwner",
   "GlobalPause",
-  "LDYStaking",
-  "LTokenSignaler",
-  "PreMining",
-  "LToken",
-  // v2
   "GlobalAccessList",
   "LedgityYieldVault",
   "GenericERC20",
   "StakingPositions",
   "StakingRewardsDistributor",
-  "CouncilMerkleDistributor",
-  "LedgityYieldVaultSonic",
-  "StakingPositionsSonic",
-  "StakingRewardsDistributorSonic",
-  "KrystalYieldVault",
-  "LegacyStakingTransition",
 ];
 
 // Read ABIs from contracts/abis directory
