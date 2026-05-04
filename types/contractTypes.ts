@@ -20,9 +20,6 @@ import {
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
  */
 export const globalAccessListAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
-  { type: 'error', inputs: [], name: 'AccountAlreadyRestricted' },
-  { type: 'error', inputs: [], name: 'AccountNotRestricted' },
   {
     type: 'event',
     anonymous: false,
@@ -55,6 +52,23 @@ export const globalAccessListAbi = [
     ],
     name: 'BeaconUpgraded',
   },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  { type: 'fallback', stateMutability: 'payable' },
+  { type: 'receive', stateMutability: 'payable' },
+  { type: 'error', inputs: [], name: 'AccountAlreadyRestricted' },
+  { type: 'error', inputs: [], name: 'AccountNotRestricted' },
   {
     type: 'event',
     anonymous: false,
@@ -107,19 +121,6 @@ export const globalAccessListAbi = [
       },
     ],
     name: 'UnrestrictAccount',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
   },
   {
     type: 'function',
@@ -224,6 +225,14 @@ export const globalAccessListAbi = [
     outputs: [],
     stateMutability: 'payable',
   },
+  {
+    type: 'constructor',
+    inputs: [
+      { name: '_logic', internalType: 'address', type: 'address' },
+      { name: '_data', internalType: 'bytes', type: 'bytes' },
+    ],
+    stateMutability: 'payable',
+  },
 ] as const
 
 /**
@@ -249,7 +258,6 @@ export const globalAccessListConfig = {
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
  */
 export const globalOwnerAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
   {
     type: 'event',
     anonymous: false,
@@ -282,6 +290,21 @@ export const globalOwnerAbi = [
     ],
     name: 'BeaconUpgraded',
   },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  { type: 'fallback', stateMutability: 'payable' },
+  { type: 'receive', stateMutability: 'payable' },
   {
     type: 'event',
     anonymous: false,
@@ -327,19 +350,6 @@ export const globalOwnerAbi = [
       },
     ],
     name: 'OwnershipTransferred',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
   },
   {
     type: 'function',
@@ -409,6 +419,14 @@ export const globalOwnerAbi = [
     outputs: [],
     stateMutability: 'payable',
   },
+  {
+    type: 'constructor',
+    inputs: [
+      { name: '_logic', internalType: 'address', type: 'address' },
+      { name: '_data', internalType: 'bytes', type: 'bytes' },
+    ],
+    stateMutability: 'payable',
+  },
 ] as const
 
 /**
@@ -434,7 +452,6 @@ export const globalOwnerConfig = {
  * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
  */
 export const globalPauseAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
   {
     type: 'event',
     anonymous: false,
@@ -467,6 +484,21 @@ export const globalPauseAbi = [
     ],
     name: 'BeaconUpgraded',
   },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  { type: 'fallback', stateMutability: 'payable' },
+  { type: 'receive', stateMutability: 'payable' },
   {
     type: 'event',
     anonymous: false,
@@ -519,19 +551,6 @@ export const globalPauseAbi = [
       },
     ],
     name: 'Unpaused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
   },
   {
     type: 'function',
@@ -619,6 +638,14 @@ export const globalPauseAbi = [
     outputs: [],
     stateMutability: 'payable',
   },
+  {
+    type: 'constructor',
+    inputs: [
+      { name: '_logic', internalType: 'address', type: 'address' },
+      { name: '_data', internalType: 'bytes', type: 'bytes' },
+    ],
+    stateMutability: 'payable',
+  },
 ] as const
 
 /**
@@ -637,10 +664,60 @@ export const globalPauseConfig = {
 } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// LedgityYieldVault
+// axUSD
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const ledgityYieldVaultAbi = [
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const axUsdAbi = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'newAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'AdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'beacon',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BeaconUpgraded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  { type: 'fallback', stateMutability: 'payable' },
+  { type: 'receive', stateMutability: 'payable' },
   { type: 'error', inputs: [], name: 'InsufficientLiquidity' },
   { type: 'error', inputs: [], name: 'InsufficientStakeForInstantWithdrawal' },
   { type: 'error', inputs: [], name: 'MissingWithdrawalRequestFee' },
@@ -712,25 +789,6 @@ export const ledgityYieldVaultAbi = [
     anonymous: false,
     inputs: [
       {
-        name: 'previousAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-      {
-        name: 'newAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'AdminChanged',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
         name: 'owner',
         internalType: 'address',
         type: 'address',
@@ -750,19 +808,6 @@ export const ledgityYieldVaultAbi = [
       },
     ],
     name: 'Approval',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'beacon',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'BeaconUpgraded',
   },
   {
     type: 'event',
@@ -1041,19 +1086,6 @@ export const ledgityYieldVaultAbi = [
       },
     ],
     name: 'Unpaused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
   },
   {
     type: 'event',
@@ -2149,1395 +2181,27 @@ export const ledgityYieldVaultAbi = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StakingPositions
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const stakingPositionsAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
-  { type: 'error', inputs: [], name: 'ERC721ReceiverRejectedTokens' },
   {
-    type: 'error',
-    inputs: [],
-    name: 'ERC721TransferToNonERC721ReceiverImplementer',
-  },
-  { type: 'error', inputs: [], name: 'LockDurationNotInFuture' },
-  { type: 'error', inputs: [], name: 'LockDurationTooLong' },
-  { type: 'error', inputs: [], name: 'LockExpired' },
-  { type: 'error', inputs: [], name: 'LockNotExpired' },
-  { type: 'error', inputs: [], name: 'NoLockFound' },
-  { type: 'error', inputs: [], name: 'NonExistentToken' },
-  { type: 'error', inputs: [], name: 'NotApprovedOrOwner' },
-  { type: 'error', inputs: [], name: 'NotOwner' },
-  { type: 'error', inputs: [], name: 'SafeCastOverflow' },
-  { type: 'error', inputs: [], name: 'SafeCastUnderflow' },
-  { type: 'error', inputs: [], name: 'SameAddress' },
-  { type: 'error', inputs: [], name: 'UserIsRestricted' },
-  { type: 'error', inputs: [], name: 'ZeroAddress' },
-  { type: 'error', inputs: [], name: 'ZeroAmount' },
-  {
-    type: 'event',
-    anonymous: false,
+    type: 'constructor',
     inputs: [
-      {
-        name: 'previousAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-      {
-        name: 'newAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'AdminChanged',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'owner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'approved',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-    ],
-    name: 'Approval',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'owner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'operator',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
-    ],
-    name: 'ApprovalForAll',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_fromTokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: '_toTokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'BatchMetadataUpdate',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'beacon',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'BeaconUpgraded',
-  },
-  { type: 'event', anonymous: false, inputs: [], name: 'BreakerActivated' },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-      {
-        name: 'depositType',
-        internalType: 'enum IStakingPositions.DepositType',
-        type: 'uint8',
-        indexed: true,
-      },
-      {
-        name: 'value',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'locktime',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'timestamp',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Deposit',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
-    ],
-    name: 'Initialized',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'MetadataUpdate',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'previousOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'newOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'OwnershipTransferred',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'Paused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'prevSupply',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'supply',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Supply',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-    ],
-    name: 'Transfer',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'Unpaused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-      {
-        name: 'value',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'timestamp',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Withdraw',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_approved', internalType: 'address', type: 'address' },
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'approve',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'artProxy',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_owner', internalType: 'address', type: 'address' }],
-    name: 'balanceOf',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_owner', internalType: 'address', type: 'address' }],
-    name: 'balanceOfAccountNFT',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'balanceOfNFT',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: '_timestamp', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'balanceOfNFTAt',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'breaker',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'checkpoint',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_value', internalType: 'uint256', type: 'uint256' },
-      { name: '_lockDuration', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'createLock',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'decimals',
-    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: '_value', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'depositFor',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'epoch',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'getApproved',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'getLockedBalance',
-    outputs: [
-      {
-        name: '',
-        internalType: 'struct IStakingPositions.LockedBalance',
-        type: 'tuple',
-        components: [
-          { name: 'amount', internalType: 'int128', type: 'int128' },
-          { name: 'end', internalType: 'uint256', type: 'uint256' },
-        ],
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_epoch', internalType: 'uint256', type: 'uint256' }],
-    name: 'getPointHistory',
-    outputs: [
-      {
-        name: '',
-        internalType: 'struct IStakingPositions.GlobalPoint',
-        type: 'tuple',
-        components: [
-          { name: 'bias', internalType: 'int128', type: 'int128' },
-          { name: 'slope', internalType: 'int128', type: 'int128' },
-          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
-        ],
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_user', internalType: 'address', type: 'address' }],
-    name: 'getUserNFTs',
-    outputs: [
-      {
-        name: '',
-        internalType: 'struct IStakingPositions.NFTData[]',
-        type: 'tuple[]',
-        components: [
-          { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
-          {
-            name: 'locked',
-            internalType: 'struct IStakingPositions.LockedBalance',
-            type: 'tuple',
-            components: [
-              { name: 'amount', internalType: 'int128', type: 'int128' },
-              { name: 'end', internalType: 'uint256', type: 'uint256' },
-            ],
-          },
-          { name: 'votingPower', internalType: 'uint256', type: 'uint256' },
-          { name: 'votingPowerAt', internalType: 'uint256', type: 'uint256' },
-          { name: 'owner', internalType: 'address', type: 'address' },
-        ],
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: '_epoch', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'getUserPointHistory',
-    outputs: [
-      {
-        name: '',
-        internalType: 'struct IStakingPositions.UserPoint',
-        type: 'tuple',
-        components: [
-          { name: 'bias', internalType: 'int128', type: 'int128' },
-          { name: 'slope', internalType: 'int128', type: 'int128' },
-          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
-        ],
-      },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_user', internalType: 'address', type: 'address' }],
-    name: 'getUserTotalVotingPower',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_user', internalType: 'address', type: 'address' },
-      { name: '_timestamp', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'getUserTotalVotingPowerAt',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalOwner',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalOwner', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalPause',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalPause', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalRestrict',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalAccessList', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'iMaxTime',
-    outputs: [{ name: '', internalType: 'int128', type: 'int128' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: '_value', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'increaseAmount',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: '_lockDuration', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'increaseUnlockTime',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'token_', internalType: 'address', type: 'address' },
-      { name: 'rewardsDistributor_', internalType: 'address', type: 'address' },
-      { name: 'maxTime_', internalType: 'uint256', type: 'uint256' },
-      { name: 'globalOwner_', internalType: 'address', type: 'address' },
-      { name: 'globalPause_', internalType: 'address', type: 'address' },
-      { name: 'globalAccessList_', internalType: 'address', type: 'address' },
-    ],
-    name: 'initialize',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_owner', internalType: 'address', type: 'address' },
-      { name: '_operator', internalType: 'address', type: 'address' },
-    ],
-    name: 'isApprovedForAll',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_spender', internalType: 'address', type: 'address' },
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'isApprovedOrOwner',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'isPausedLocal',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'maxTime',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'name',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'owner',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'ownerOf',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'owner', internalType: 'address', type: 'address' },
-      { name: 'index', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'ownerToNFTokenIdList',
-    outputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'pauseLocal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'paused',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'proxiableUUID',
-    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'tokenAddress', internalType: 'address', type: 'address' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'recoverERC20',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'rewardsDistributor',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_from', internalType: 'address', type: 'address' },
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_from', internalType: 'address', type: 'address' },
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_logic', internalType: 'address', type: 'address' },
       { name: '_data', internalType: 'bytes', type: 'bytes' },
     ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_operator', internalType: 'address', type: 'address' },
-      { name: '_approved', internalType: 'bool', type: 'bool' },
-    ],
-    name: 'setApprovalForAll',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_proxy', internalType: 'address', type: 'address' }],
-    name: 'setArtProxy',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_maxTime', internalType: 'uint256', type: 'uint256' }],
-    name: 'setMaxTime',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'timestamp', internalType: 'uint256', type: 'uint256' }],
-    name: 'slopeChanges',
-    outputs: [{ name: 'change', internalType: 'int128', type: 'int128' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'supply',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_interfaceID', internalType: 'bytes4', type: 'bytes4' }],
-    name: 'supportsInterface',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'symbol',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'token',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'tokenId',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'tokenURI',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'totalSupply',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_timestamp', internalType: 'uint256', type: 'uint256' }],
-    name: 'totalSupplyAt',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_from', internalType: 'address', type: 'address' },
-      { name: '_to', internalType: 'address', type: 'address' },
-      { name: '_tokenId', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'transferFrom',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'unlockAll',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'unpauseLocal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'newImplementation', internalType: 'address', type: 'address' },
-    ],
-    name: 'upgradeTo',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'newImplementation', internalType: 'address', type: 'address' },
-      { name: 'data', internalType: 'bytes', type: 'bytes' },
-    ],
-    name: 'upgradeToAndCall',
-    outputs: [],
-    stateMutability: 'payable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'userPointEpoch',
-    outputs: [{ name: 'epoch', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StakingRewardsDistributor
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const stakingRewardsDistributorAbi = [
-  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
-  { type: 'error', inputs: [], name: 'InvalidTokenId' },
-  { type: 'error', inputs: [], name: 'NotApprovedOrOwner' },
-  { type: 'error', inputs: [], name: 'NotOwner' },
-  { type: 'error', inputs: [], name: 'OnlyStakingPositions' },
-  { type: 'error', inputs: [], name: 'UserIsRestricted' },
-  { type: 'error', inputs: [], name: 'ZeroAmount' },
-  { type: 'error', inputs: [], name: 'ZeroDuration' },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'previousAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-      {
-        name: 'newAdmin',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'AdminChanged',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'fromWeek',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'toWeek',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'BaseRewardsClaimed',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'periodId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'startWeek',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'duration',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'weeklyAmount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'BaseRewardsDeposited',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'beacon',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'BeaconUpgraded',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
-    ],
-    name: 'Initialized',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'previousOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'newOwner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'OwnershipTransferred',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'Paused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'timestamp',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'totalSupply',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'ProtocolFeesDeposited',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'tokenId',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: true,
-      },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'ProtocolRewardsClaimed',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'Unpaused',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'implementation',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'Upgraded',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'WEEK',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'baseRewardCursor',
-    outputs: [
-      { name: '_weekCursor', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'baseRewardPeriodCursor',
-    outputs: [
-      { name: '_periodCursor', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_periodId', internalType: 'uint256', type: 'uint256' }],
-    name: 'baseRewardPeriods',
-    outputs: [
-      { name: 'startWeek', internalType: 'uint256', type: 'uint256' },
-      { name: 'endWeek', internalType: 'uint256', type: 'uint256' },
-      { name: 'totalAmount', internalType: 'uint256', type: 'uint256' },
-      { name: 'weeklyAmount', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: '_periodId', internalType: 'uint256', type: 'uint256' },
-      { name: '_week', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'baseRewardsPerWeek',
-    outputs: [{ name: '_amount', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'claim',
-    outputs: [
-      { name: 'baseRewards', internalType: 'uint256', type: 'uint256' },
-      { name: 'protocolRewards', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'tokenIds', internalType: 'uint256[]', type: 'uint256[]' },
-    ],
-    name: 'claimMany',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
-      { name: 'to', internalType: 'address', type: 'address' },
-    ],
-    name: 'claimOnWithdrawal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'claimable',
-    outputs: [
-      { name: 'baseRewards', internalType: 'uint256', type: 'uint256' },
-      { name: 'protocolRewards', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'cumulativeProtocolRewardsPerToken',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'currentPeriodId',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'duration', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'depositBaseRewards',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
-    name: 'depositProtocolFees',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalOwner',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalOwner', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalPause',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalPause', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'globalRestrict',
-    outputs: [
-      { name: '', internalType: 'contract IGlobalAccessList', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'staking_', internalType: 'address', type: 'address' },
-      { name: 'globalOwner_', internalType: 'address', type: 'address' },
-      { name: 'globalPause_', internalType: 'address', type: 'address' },
-      { name: 'globalAccessList_', internalType: 'address', type: 'address' },
-    ],
-    name: 'initialize',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'isPausedLocal',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'lastTokenTime',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'onLockCreated',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'owner',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'pauseLocal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'paused',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'pendingBaseRewards',
-    outputs: [
-      { name: 'pendingRewards', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '_tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'protocolRewardsPerTokenPaid',
-    outputs: [{ name: '_amount', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'proxiableUUID',
-    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'tokenAddress', internalType: 'address', type: 'address' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'recoverERC20',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'staking',
-    outputs: [
-      { name: '', internalType: 'contract IStakingPositions', type: 'address' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'startTime',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'token',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'unpauseLocal',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'staking_', internalType: 'address', type: 'address' },
-      { name: 'token_', internalType: 'address', type: 'address' },
-    ],
-    name: 'updateAddresses',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'newImplementation', internalType: 'address', type: 'address' },
-    ],
-    name: 'upgradeTo',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'newImplementation', internalType: 'address', type: 'address' },
-      { name: 'data', internalType: 'bytes', type: 'bytes' },
-    ],
-    name: 'upgradeToAndCall',
-    outputs: [],
     stateMutability: 'payable',
   },
 ] as const
+
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const axUsdAddress = {
+  8453: '0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC',
+} as const
+
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const axUsdConfig = { address: axUsdAddress, abi: axUsdAbi } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // React
@@ -3851,6 +2515,18 @@ export const useWatchGlobalAccessListBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
+ */
+export const useWatchGlobalAccessListUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: globalAccessListAbi,
+    address: globalAccessListAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
@@ -3896,18 +2572,6 @@ export const useWatchGlobalAccessListUnrestrictAccountEvent =
     abi: globalAccessListAbi,
     address: globalAccessListAddress,
     eventName: 'UnrestrictAccount',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Upgraded"`
- *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
- */
-export const useWatchGlobalAccessListUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: globalAccessListAbi,
-    address: globalAccessListAddress,
-    eventName: 'Upgraded',
   })
 
 /**
@@ -4155,6 +2819,18 @@ export const useWatchGlobalOwnerBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
+ */
+export const useWatchGlobalOwnerUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: globalOwnerAbi,
+    address: globalOwnerAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
@@ -4188,18 +2864,6 @@ export const useWatchGlobalOwnerOwnershipTransferredEvent =
     abi: globalOwnerAbi,
     address: globalOwnerAddress,
     eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Upgraded"`
- *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
- */
-export const useWatchGlobalOwnerUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: globalOwnerAbi,
-    address: globalOwnerAddress,
-    eventName: 'Upgraded',
   })
 
 /**
@@ -4480,6 +3144,18 @@ export const useWatchGlobalPauseBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
+ */
+export const useWatchGlobalPauseUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: globalPauseAbi,
+    address: globalPauseAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
@@ -4528,3017 +3204,1942 @@ export const useWatchGlobalPauseUnpausedEvent =
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Upgraded"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__
  *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchGlobalPauseUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: globalPauseAbi,
-    address: globalPauseAddress,
-    eventName: 'Upgraded',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const useReadLedgityYieldVault = /*#__PURE__*/ createUseReadContract({
-  abi: ledgityYieldVaultAbi,
+export const useReadAxUsd = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"RAY"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"RAY"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultRay = /*#__PURE__*/ createUseReadContract({
-  abi: ledgityYieldVaultAbi,
+export const useReadAxUsdRay = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'RAY',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aToken"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"aToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultAToken =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'aToken',
-  })
+export const useReadAxUsdAToken = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'aToken',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aaveLendingPool"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"aaveLendingPool"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultAaveLendingPool =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'aaveLendingPool',
-  })
+export const useReadAxUsdAaveLendingPool = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'aaveLendingPool',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultAccountWithdrawalFee =
+export const useReadAxUsdAccountWithdrawalFee =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'accountWithdrawalFee',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"allowance"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"allowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultAllowance =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'allowance',
-  })
+export const useReadAxUsdAllowance = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'allowance',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"asset"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"asset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultAsset =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'asset',
-  })
+export const useReadAxUsdAsset = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'asset',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"balanceOf"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"balanceOf"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultBalanceOf =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'balanceOf',
-  })
+export const useReadAxUsdBalanceOf = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'balanceOf',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToAssets"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"convertToAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultConvertToAssets =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'convertToAssets',
-  })
+export const useReadAxUsdConvertToAssets = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'convertToAssets',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToShares"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"convertToShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultConvertToShares =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'convertToShares',
-  })
+export const useReadAxUsdConvertToShares = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'convertToShares',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimals"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decimals"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultDecimals =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decimals',
-  })
+export const useReadAxUsdDecimals = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'decimals',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimalsOffset"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decimalsOffset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultDecimalsOffset =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decimalsOffset',
-  })
+export const useReadAxUsdDecimalsOffset = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'decimalsOffset',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deploymentDelay"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultDeploymentDelay =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'deploymentDelay',
-  })
+export const useReadAxUsdDeploymentDelay = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'deploymentDelay',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"feeRecipient"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"feeRecipient"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultFeeRecipient =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'feeRecipient',
-  })
+export const useReadAxUsdFeeRecipient = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'feeRecipient',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getBufferAssets"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getBufferAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetBufferAssets =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getBufferAssets',
-  })
+export const useReadAxUsdGetBufferAssets = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getBufferAssets',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetCcipAdmin =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getCCIPAdmin',
-  })
+export const useReadAxUsdGetCcipAdmin = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getCCIPAdmin',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getFeeData"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getFeeData"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetFeeData =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getFeeData',
-  })
+export const useReadAxUsdGetFeeData = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getFeeData',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetUserWithdrawalRequests =
+export const useReadAxUsdGetUserWithdrawalRequests =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getUserWithdrawalRequests',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetWithdrawalRequestCount =
+export const useReadAxUsdGetWithdrawalRequestCount =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getWithdrawalRequestCount',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetWithdrawalRequests =
+export const useReadAxUsdGetWithdrawalRequests =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getWithdrawalRequests',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGetWithdrawalRequestsByIds =
+export const useReadAxUsdGetWithdrawalRequestsByIds =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getWithdrawalRequestsByIds',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalOwner"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalOwner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGlobalOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalOwner',
-  })
+export const useReadAxUsdGlobalOwner = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalOwner',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalPause"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalPause"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGlobalPause =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalPause',
-  })
+export const useReadAxUsdGlobalPause = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalPause',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalRestrict"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalRestrict"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultGlobalRestrict =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalRestrict',
-  })
+export const useReadAxUsdGlobalRestrict = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalRestrict',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultHasBufferStrategy =
+export const useReadAxUsdHasBufferStrategy =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'hasBufferStrategy',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"highWaterMark"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"highWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultHighWaterMark =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'highWaterMark',
-  })
+export const useReadAxUsdHighWaterMark = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'highWaterMark',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isBurner"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isBurner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultIsBurner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'isBurner',
-  })
+export const useReadAxUsdIsBurner = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'isBurner',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isMinter"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isMinter"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultIsMinter =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'isMinter',
-  })
+export const useReadAxUsdIsMinter = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'isMinter',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isPausedLocal"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isPausedLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultIsPausedLocal =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'isPausedLocal',
-  })
+export const useReadAxUsdIsPausedLocal = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'isPausedLocal',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lToken"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultLToken =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'lToken',
-  })
+export const useReadAxUsdLToken = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'lToken',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastCompoundTime"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lastCompoundTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultLastCompoundTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'lastCompoundTime',
-  })
+export const useReadAxUsdLastCompoundTime = /*#__PURE__*/ createUseReadContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'lastCompoundTime' },
+)
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastFeeTime"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lastFeeTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultLastFeeTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'lastFeeTime',
-  })
+export const useReadAxUsdLastFeeTime = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'lastFeeTime',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultLiquidityBufferRate =
+export const useReadAxUsdLiquidityBufferRate =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'liquidityBufferRate',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityManager"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"liquidityManager"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultLiquidityManager =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'liquidityManager',
-  })
+export const useReadAxUsdLiquidityManager = /*#__PURE__*/ createUseReadContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'liquidityManager' },
+)
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"managementFeeRate"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"managementFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultManagementFeeRate =
+export const useReadAxUsdManagementFeeRate =
   /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'managementFeeRate',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxDeposit"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadLedgityYieldVaultMaxDeposit =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'maxDeposit',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxMint"`
- */
-export const useReadLedgityYieldVaultMaxMint =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'maxMint',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxRedeem"`
- */
-export const useReadLedgityYieldVaultMaxRedeem =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'maxRedeem',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxWithdraw"`
- */
-export const useReadLedgityYieldVaultMaxWithdraw =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'maxWithdraw',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"name"`
- */
-export const useReadLedgityYieldVaultName = /*#__PURE__*/ createUseReadContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'name' },
-)
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"owner"`
- */
-export const useReadLedgityYieldVaultOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'owner',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"paused"`
- */
-export const useReadLedgityYieldVaultPaused =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'paused',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"performanceFeeRate"`
- */
-export const useReadLedgityYieldVaultPerformanceFeeRate =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'performanceFeeRate',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewDeposit"`
- */
-export const useReadLedgityYieldVaultPreviewDeposit =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewDeposit',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewMint"`
- */
-export const useReadLedgityYieldVaultPreviewMint =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewMint',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewRedeem"`
- */
-export const useReadLedgityYieldVaultPreviewRedeem =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewRedeem',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewWithdraw"`
- */
-export const useReadLedgityYieldVaultPreviewWithdraw =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewWithdraw',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"proxiableUUID"`
- */
-export const useReadLedgityYieldVaultProxiableUuid =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'proxiableUUID',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForFeeReduction"`
- */
-export const useReadLedgityYieldVaultStakeForFeeReduction =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'stakeForFeeReduction',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
- */
-export const useReadLedgityYieldVaultStakeForInstantWithdrawal =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'stakeForInstantWithdrawal',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeToken"`
- */
-export const useReadLedgityYieldVaultStakeToken =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'stakeToken',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"symbol"`
- */
-export const useReadLedgityYieldVaultSymbol =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'symbol',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalAssets"`
- */
-export const useReadLedgityYieldVaultTotalAssets =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'totalAssets',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalSupply"`
- */
-export const useReadLedgityYieldVaultTotalSupply =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'totalSupply',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalFeeRate"`
- */
-export const useReadLedgityYieldVaultWithdrawalFeeRate =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalFeeRate',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalGasFee"`
- */
-export const useReadLedgityYieldVaultWithdrawalGasFee =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalGasFee',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalRequests"`
- */
-export const useReadLedgityYieldVaultWithdrawalRequests =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalRequests',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"yieldAPR"`
- */
-export const useReadLedgityYieldVaultYieldApr =
-  /*#__PURE__*/ createUseReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'yieldAPR',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const useWriteLedgityYieldVault = /*#__PURE__*/ createUseWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const useReadAxUsdMaxDeposit = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxDeposit',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
- */
-export const useWriteLedgityYieldVaultApprove =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'approve',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
- */
-export const useWriteLedgityYieldVaultBurn =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burn',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
- */
-export const useWriteLedgityYieldVaultBurnAndRemintBlacklistedShares =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burnAndRemintBlacklistedShares',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
- */
-export const useWriteLedgityYieldVaultDecreaseAllowance =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decreaseAllowance',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
- */
-export const useWriteLedgityYieldVaultDeposit =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'deposit',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
- */
-export const useWriteLedgityYieldVaultDepositToBuffer =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'depositToBuffer',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
- */
-export const useWriteLedgityYieldVaultGrantBurnRole =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantBurnRole',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
- */
-export const useWriteLedgityYieldVaultGrantMintRole =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantMintRole',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
- */
-export const useWriteLedgityYieldVaultHarvestFees =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'harvestFees',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
- */
-export const useWriteLedgityYieldVaultIncreaseAllowance =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'increaseAllowance',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
- */
-export const useWriteLedgityYieldVaultInitialize =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
- */
-export const useWriteLedgityYieldVaultMigrateLToken =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'migrateLToken',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
- */
-export const useWriteLedgityYieldVaultMint =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'mint',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const useWriteLedgityYieldVaultPauseLocal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
- */
-export const useWriteLedgityYieldVaultProcessRequests =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'processRequests',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const useWriteLedgityYieldVaultRecoverErc20 =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
- */
-export const useWriteLedgityYieldVaultRedeem =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'redeem',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const useWriteLedgityYieldVaultRenounceOwnership =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
- */
-export const useWriteLedgityYieldVaultRequestWithdrawal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'requestWithdrawal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
- */
-export const useWriteLedgityYieldVaultRevokeBurnRole =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeBurnRole',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
- */
-export const useWriteLedgityYieldVaultRevokeMintRole =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeMintRole',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
- */
-export const useWriteLedgityYieldVaultSetAccountWithdrawalFee =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setAccountWithdrawalFee',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
- */
-export const useWriteLedgityYieldVaultSetCcipAdmin =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setCCIPAdmin',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
- */
-export const useWriteLedgityYieldVaultSetTotalAssets =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setTotalAssets',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
- */
-export const useWriteLedgityYieldVaultSkimBuffer =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'skimBuffer',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
- */
-export const useWriteLedgityYieldVaultTransfer =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transfer',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
- */
-export const useWriteLedgityYieldVaultTransferFrom =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferFrom',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const useWriteLedgityYieldVaultTransferOwnership =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const useWriteLedgityYieldVaultUnpauseLocal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
- */
-export const useWriteLedgityYieldVaultUpdateApr =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateAPR',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
- */
-export const useWriteLedgityYieldVaultUpdateBufferRate =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateBufferRate',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
- */
-export const useWriteLedgityYieldVaultUpdateDeploymentDelay =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateDeploymentDelay',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
- */
-export const useWriteLedgityYieldVaultUpdateFeeRates =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateFeeRates',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
- */
-export const useWriteLedgityYieldVaultUpdateHighWaterMark =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateHighWaterMark',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
- */
-export const useWriteLedgityYieldVaultUpdateVaultManagers =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultManagers',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
- */
-export const useWriteLedgityYieldVaultUpdateVaultParams =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultParams',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
- */
-export const useWriteLedgityYieldVaultUpdateWithdrawalGasFee =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateWithdrawalGasFee',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const useWriteLedgityYieldVaultUpgradeTo =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const useWriteLedgityYieldVaultUpgradeToAndCall =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
- */
-export const useWriteLedgityYieldVaultWithdraw =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdraw',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const useSimulateLedgityYieldVault =
-  /*#__PURE__*/ createUseSimulateContract({ abi: ledgityYieldVaultAbi })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
- */
-export const useSimulateLedgityYieldVaultApprove =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'approve',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
- */
-export const useSimulateLedgityYieldVaultBurn =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burn',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
- */
-export const useSimulateLedgityYieldVaultBurnAndRemintBlacklistedShares =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burnAndRemintBlacklistedShares',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
- */
-export const useSimulateLedgityYieldVaultDecreaseAllowance =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decreaseAllowance',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
- */
-export const useSimulateLedgityYieldVaultDeposit =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'deposit',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
- */
-export const useSimulateLedgityYieldVaultDepositToBuffer =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'depositToBuffer',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
- */
-export const useSimulateLedgityYieldVaultGrantBurnRole =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantBurnRole',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
- */
-export const useSimulateLedgityYieldVaultGrantMintRole =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantMintRole',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
- */
-export const useSimulateLedgityYieldVaultHarvestFees =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'harvestFees',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
- */
-export const useSimulateLedgityYieldVaultIncreaseAllowance =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'increaseAllowance',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
- */
-export const useSimulateLedgityYieldVaultInitialize =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
- */
-export const useSimulateLedgityYieldVaultMigrateLToken =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'migrateLToken',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
- */
-export const useSimulateLedgityYieldVaultMint =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'mint',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const useSimulateLedgityYieldVaultPauseLocal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
- */
-export const useSimulateLedgityYieldVaultProcessRequests =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'processRequests',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const useSimulateLedgityYieldVaultRecoverErc20 =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
- */
-export const useSimulateLedgityYieldVaultRedeem =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'redeem',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const useSimulateLedgityYieldVaultRenounceOwnership =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
- */
-export const useSimulateLedgityYieldVaultRequestWithdrawal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'requestWithdrawal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
- */
-export const useSimulateLedgityYieldVaultRevokeBurnRole =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeBurnRole',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
- */
-export const useSimulateLedgityYieldVaultRevokeMintRole =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeMintRole',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
- */
-export const useSimulateLedgityYieldVaultSetAccountWithdrawalFee =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setAccountWithdrawalFee',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
- */
-export const useSimulateLedgityYieldVaultSetCcipAdmin =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setCCIPAdmin',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
- */
-export const useSimulateLedgityYieldVaultSetTotalAssets =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setTotalAssets',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
- */
-export const useSimulateLedgityYieldVaultSkimBuffer =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'skimBuffer',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
- */
-export const useSimulateLedgityYieldVaultTransfer =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transfer',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
- */
-export const useSimulateLedgityYieldVaultTransferFrom =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferFrom',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const useSimulateLedgityYieldVaultTransferOwnership =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const useSimulateLedgityYieldVaultUnpauseLocal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
- */
-export const useSimulateLedgityYieldVaultUpdateApr =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateAPR',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
- */
-export const useSimulateLedgityYieldVaultUpdateBufferRate =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateBufferRate',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
- */
-export const useSimulateLedgityYieldVaultUpdateDeploymentDelay =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateDeploymentDelay',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
- */
-export const useSimulateLedgityYieldVaultUpdateFeeRates =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateFeeRates',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
- */
-export const useSimulateLedgityYieldVaultUpdateHighWaterMark =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateHighWaterMark',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
- */
-export const useSimulateLedgityYieldVaultUpdateVaultManagers =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultManagers',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
- */
-export const useSimulateLedgityYieldVaultUpdateVaultParams =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultParams',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
- */
-export const useSimulateLedgityYieldVaultUpdateWithdrawalGasFee =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateWithdrawalGasFee',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const useSimulateLedgityYieldVaultUpgradeTo =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const useSimulateLedgityYieldVaultUpgradeToAndCall =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
- */
-export const useSimulateLedgityYieldVaultWithdraw =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdraw',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const useWatchLedgityYieldVaultEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({ abi: ledgityYieldVaultAbi })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"APRUpdated"`
- */
-export const useWatchLedgityYieldVaultAprUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'APRUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
- */
-export const useWatchLedgityYieldVaultAccountWithdrawalFeeSetEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'AccountWithdrawalFeeSet',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AdminChanged"`
- */
-export const useWatchLedgityYieldVaultAdminChangedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'AdminChanged',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Approval"`
- */
-export const useWatchLedgityYieldVaultApprovalEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Approval',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BeaconUpgraded"`
- */
-export const useWatchLedgityYieldVaultBeaconUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BeaconUpgraded',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BufferRateUpdated"`
- */
-export const useWatchLedgityYieldVaultBufferRateUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BufferRateUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessGranted"`
- */
-export const useWatchLedgityYieldVaultBurnAccessGrantedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BurnAccessGranted',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessRevoked"`
- */
-export const useWatchLedgityYieldVaultBurnAccessRevokedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BurnAccessRevoked',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"CCIPAdminChanged"`
- */
-export const useWatchLedgityYieldVaultCcipAdminChangedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'CCIPAdminChanged',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
- */
-export const useWatchLedgityYieldVaultDeploymentDelayUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'DeploymentDelayUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Deposit"`
- */
-export const useWatchLedgityYieldVaultDepositEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Deposit',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"FeeRatesUpdated"`
- */
-export const useWatchLedgityYieldVaultFeeRatesUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'FeeRatesUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
- */
-export const useWatchLedgityYieldVaultHighWaterMarkUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'HighWaterMarkUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Initialized"`
- */
-export const useWatchLedgityYieldVaultInitializedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Initialized',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessGranted"`
- */
-export const useWatchLedgityYieldVaultMintAccessGrantedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'MintAccessGranted',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessRevoked"`
- */
-export const useWatchLedgityYieldVaultMintAccessRevokedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'MintAccessRevoked',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"OwnershipTransferred"`
- */
-export const useWatchLedgityYieldVaultOwnershipTransferredEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Paused"`
- */
-export const useWatchLedgityYieldVaultPausedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Paused',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
- */
-export const useWatchLedgityYieldVaultRateCheckpointUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'RateCheckpointUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
- */
-export const useWatchLedgityYieldVaultTotalAssetsUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'TotalAssetsUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Transfer"`
- */
-export const useWatchLedgityYieldVaultTransferEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Transfer',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Unpaused"`
- */
-export const useWatchLedgityYieldVaultUnpausedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Unpaused',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Upgraded"`
- */
-export const useWatchLedgityYieldVaultUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Upgraded',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultManagersUpdated"`
- */
-export const useWatchLedgityYieldVaultVaultManagersUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'VaultManagersUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultParamsUpdated"`
- */
-export const useWatchLedgityYieldVaultVaultParamsUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'VaultParamsUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Withdraw"`
- */
-export const useWatchLedgityYieldVaultWithdrawEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Withdraw',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
- */
-export const useWatchLedgityYieldVaultWithdrawalGasFeeUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalGasFeeUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalProcessed"`
- */
-export const useWatchLedgityYieldVaultWithdrawalProcessedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalProcessed',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalRequested"`
- */
-export const useWatchLedgityYieldVaultWithdrawalRequestedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalRequested',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__
- */
-export const useReadStakingPositions = /*#__PURE__*/ createUseReadContract({
-  abi: stakingPositionsAbi,
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdMaxMint = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxMint',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"artProxy"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadStakingPositionsArtProxy =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'artProxy',
-  })
+export const useReadAxUsdMaxRedeem = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxRedeem',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOf"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadStakingPositionsBalanceOf =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOf',
-  })
+export const useReadAxUsdMaxWithdraw = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxWithdraw',
+})
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfAccountNFT"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"name"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadStakingPositionsBalanceOfAccountNft =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfAccountNFT',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfNFT"`
- */
-export const useReadStakingPositionsBalanceOfNft =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfNFT',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfNFTAt"`
- */
-export const useReadStakingPositionsBalanceOfNftAt =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfNFTAt',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"breaker"`
- */
-export const useReadStakingPositionsBreaker =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'breaker',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"decimals"`
- */
-export const useReadStakingPositionsDecimals =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'decimals',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"epoch"`
- */
-export const useReadStakingPositionsEpoch = /*#__PURE__*/ createUseReadContract(
-  { abi: stakingPositionsAbi, functionName: 'epoch' },
-)
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getApproved"`
- */
-export const useReadStakingPositionsGetApproved =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getApproved',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getLockedBalance"`
- */
-export const useReadStakingPositionsGetLockedBalance =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getLockedBalance',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getPointHistory"`
- */
-export const useReadStakingPositionsGetPointHistory =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getPointHistory',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserNFTs"`
- */
-export const useReadStakingPositionsGetUserNfTs =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserNFTs',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserPointHistory"`
- */
-export const useReadStakingPositionsGetUserPointHistory =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserPointHistory',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserTotalVotingPower"`
- */
-export const useReadStakingPositionsGetUserTotalVotingPower =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserTotalVotingPower',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserTotalVotingPowerAt"`
- */
-export const useReadStakingPositionsGetUserTotalVotingPowerAt =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserTotalVotingPowerAt',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalOwner"`
- */
-export const useReadStakingPositionsGlobalOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'globalOwner',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalPause"`
- */
-export const useReadStakingPositionsGlobalPause =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'globalPause',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalRestrict"`
- */
-export const useReadStakingPositionsGlobalRestrict =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'globalRestrict',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"iMaxTime"`
- */
-export const useReadStakingPositionsIMaxTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'iMaxTime',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isApprovedForAll"`
- */
-export const useReadStakingPositionsIsApprovedForAll =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isApprovedForAll',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isApprovedOrOwner"`
- */
-export const useReadStakingPositionsIsApprovedOrOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isApprovedOrOwner',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isPausedLocal"`
- */
-export const useReadStakingPositionsIsPausedLocal =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isPausedLocal',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"maxTime"`
- */
-export const useReadStakingPositionsMaxTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'maxTime',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"name"`
- */
-export const useReadStakingPositionsName = /*#__PURE__*/ createUseReadContract({
-  abi: stakingPositionsAbi,
+export const useReadAxUsdName = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'name',
 })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"owner"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"owner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadStakingPositionsOwner = /*#__PURE__*/ createUseReadContract(
-  { abi: stakingPositionsAbi, functionName: 'owner' },
-)
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"ownerOf"`
- */
-export const useReadStakingPositionsOwnerOf =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'ownerOf',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"ownerToNFTokenIdList"`
- */
-export const useReadStakingPositionsOwnerToNfTokenIdList =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'ownerToNFTokenIdList',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"paused"`
- */
-export const useReadStakingPositionsPaused =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'paused',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"proxiableUUID"`
- */
-export const useReadStakingPositionsProxiableUuid =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'proxiableUUID',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"rewardsDistributor"`
- */
-export const useReadStakingPositionsRewardsDistributor =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'rewardsDistributor',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"slopeChanges"`
- */
-export const useReadStakingPositionsSlopeChanges =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'slopeChanges',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"supply"`
- */
-export const useReadStakingPositionsSupply =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'supply',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"supportsInterface"`
- */
-export const useReadStakingPositionsSupportsInterface =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'supportsInterface',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"symbol"`
- */
-export const useReadStakingPositionsSymbol =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'symbol',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"token"`
- */
-export const useReadStakingPositionsToken = /*#__PURE__*/ createUseReadContract(
-  { abi: stakingPositionsAbi, functionName: 'token' },
-)
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"tokenId"`
- */
-export const useReadStakingPositionsTokenId =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'tokenId',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"tokenURI"`
- */
-export const useReadStakingPositionsTokenUri =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'tokenURI',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"totalSupply"`
- */
-export const useReadStakingPositionsTotalSupply =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'totalSupply',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"totalSupplyAt"`
- */
-export const useReadStakingPositionsTotalSupplyAt =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'totalSupplyAt',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"userPointEpoch"`
- */
-export const useReadStakingPositionsUserPointEpoch =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'userPointEpoch',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__
- */
-export const useWriteStakingPositions = /*#__PURE__*/ createUseWriteContract({
-  abi: stakingPositionsAbi,
+export const useReadAxUsdOwner = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'owner',
 })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"approve"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsApprove =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'approve',
+export const useReadAxUsdPaused = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'paused',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"performanceFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdPerformanceFeeRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'performanceFeeRate',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"checkpoint"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsCheckpoint =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'checkpoint',
+export const useReadAxUsdPreviewDeposit = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewDeposit',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdPreviewMint = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewMint',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdPreviewRedeem = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewRedeem',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdPreviewWithdraw = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewWithdraw',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"proxiableUUID"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdProxiableUuid = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'proxiableUUID',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeForFeeReduction"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdStakeForFeeReduction =
+  /*#__PURE__*/ createUseReadContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'stakeForFeeReduction',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"createLock"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsCreateLock =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'createLock',
+export const useReadAxUsdStakeForInstantWithdrawal =
+  /*#__PURE__*/ createUseReadContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'stakeForInstantWithdrawal',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"depositFor"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsDepositFor =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'depositFor',
+export const useReadAxUsdStakeToken = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'stakeToken',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"symbol"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdSymbol = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'symbol',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"totalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdTotalAssets = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'totalAssets',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"totalSupply"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdTotalSupply = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'totalSupply',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdWithdrawalFeeRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'withdrawalFeeRate',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseAmount"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsIncreaseAmount =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseAmount',
+export const useReadAxUsdWithdrawalGasFee = /*#__PURE__*/ createUseReadContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'withdrawalGasFee' },
+)
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useReadAxUsdWithdrawalRequests =
+  /*#__PURE__*/ createUseReadContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'withdrawalRequests',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseUnlockTime"`
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"yieldAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsIncreaseUnlockTime =
+export const useReadAxUsdYieldApr = /*#__PURE__*/ createUseReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'yieldAPR',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsd = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdApprove = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'approve',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdBurn = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'burn',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdBurnAndRemintBlacklistedShares =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseUnlockTime',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"initialize"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsInitialize =
+export const useWriteAxUsdDecreaseAllowance =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'initialize',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'decreaseAllowance',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"pauseLocal"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsPauseLocal =
+export const useWriteAxUsdDeposit = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'deposit',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdDepositToBuffer =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'pauseLocal',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'depositToBuffer',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"recoverERC20"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsRecoverErc20 =
+export const useWriteAxUsdGrantBurnRole = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantBurnRole',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdGrantMintRole = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantMintRole',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdHarvestFees = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'harvestFees',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdIncreaseAllowance =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'recoverERC20',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'increaseAllowance',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"renounceOwnership"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsRenounceOwnership =
+export const useWriteAxUsdInitialize = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'initialize',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdMigrateLToken = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'migrateLToken',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdMint = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'mint',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdPauseLocal = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'pauseLocal',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdProcessRequests =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdRecoverErc20 = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'recoverERC20',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdRedeem = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'redeem',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdRenounceOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'renounceOwnership',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"safeTransferFrom"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsSafeTransferFrom =
+export const useWriteAxUsdRequestWithdrawal =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'safeTransferFrom',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'requestWithdrawal',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setApprovalForAll"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsSetApprovalForAll =
+export const useWriteAxUsdRevokeBurnRole = /*#__PURE__*/ createUseWriteContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'revokeBurnRole' },
+)
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdRevokeMintRole = /*#__PURE__*/ createUseWriteContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'revokeMintRole' },
+)
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdSetAccountWithdrawalFee =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setApprovalForAll',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'setAccountWithdrawalFee',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setArtProxy"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsSetArtProxy =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setArtProxy',
-  })
+export const useWriteAxUsdSetCcipAdmin = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'setCCIPAdmin',
+})
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setMaxTime"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsSetMaxTime =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setMaxTime',
-  })
+export const useWriteAxUsdSetTotalAssets = /*#__PURE__*/ createUseWriteContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'setTotalAssets' },
+)
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferFrom"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsTransferFrom =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'transferFrom',
-  })
+export const useWriteAxUsdSkimBuffer = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'skimBuffer',
+})
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferOwnership"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsTransferOwnership =
+export const useWriteAxUsdTransfer = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transfer',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdTransferFrom = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transferFrom',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'transferOwnership',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unlockAll"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsUnlockAll =
+export const useWriteAxUsdUnpauseLocal = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'unpauseLocal',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpdateApr = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateAPR',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpdateBufferRate =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unlockAll',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateBufferRate',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unpauseLocal"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsUnpauseLocal =
+export const useWriteAxUsdUpdateDeploymentDelay =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unpauseLocal',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateDeploymentDelay',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeTo"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsUpgradeTo =
+export const useWriteAxUsdUpdateFeeRates = /*#__PURE__*/ createUseWriteContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'updateFeeRates' },
+)
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpdateHighWaterMark =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'upgradeTo',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateHighWaterMark',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsUpgradeToAndCall =
+export const useWriteAxUsdUpdateVaultManagers =
   /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpdateVaultParams =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpgradeTo = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'upgradeTo',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWriteAxUsdUpgradeToAndCall =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'upgradeToAndCall',
   })
 
 /**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"withdraw"`
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWriteStakingPositionsWithdraw =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'withdraw',
+export const useWriteAxUsdWithdraw = /*#__PURE__*/ createUseWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'withdraw',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsd = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdApprove = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'approve',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdBurn = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'burn',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdBurnAndRemintBlacklistedShares =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositions =
-  /*#__PURE__*/ createUseSimulateContract({ abi: stakingPositionsAbi })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"approve"`
- */
-export const useSimulateStakingPositionsApprove =
+export const useSimulateAxUsdDecreaseAllowance =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'approve',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'decreaseAllowance',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"checkpoint"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsCheckpoint =
+export const useSimulateAxUsdDeposit = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'deposit',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdDepositToBuffer =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'checkpoint',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'depositToBuffer',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"createLock"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsCreateLock =
+export const useSimulateAxUsdGrantBurnRole =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'createLock',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'grantBurnRole',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"depositFor"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsDepositFor =
+export const useSimulateAxUsdGrantMintRole =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'depositFor',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'grantMintRole',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseAmount"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsIncreaseAmount =
+export const useSimulateAxUsdHarvestFees =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseAmount',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'harvestFees',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseUnlockTime"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsIncreaseUnlockTime =
+export const useSimulateAxUsdIncreaseAllowance =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseUnlockTime',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'increaseAllowance',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"initialize"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsInitialize =
+export const useSimulateAxUsdInitialize =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'initialize',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"pauseLocal"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsPauseLocal =
+export const useSimulateAxUsdMigrateLToken =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'migrateLToken',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdMint = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'mint',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdPauseLocal =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'pauseLocal',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"recoverERC20"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsRecoverErc20 =
+export const useSimulateAxUsdProcessRequests =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdRecoverErc20 =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'recoverERC20',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"renounceOwnership"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsRenounceOwnership =
+export const useSimulateAxUsdRedeem = /*#__PURE__*/ createUseSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'redeem',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdRenounceOwnership =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'renounceOwnership',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"safeTransferFrom"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsSafeTransferFrom =
+export const useSimulateAxUsdRequestWithdrawal =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'safeTransferFrom',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'requestWithdrawal',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setApprovalForAll"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsSetApprovalForAll =
+export const useSimulateAxUsdRevokeBurnRole =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setApprovalForAll',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'revokeBurnRole',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setArtProxy"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsSetArtProxy =
+export const useSimulateAxUsdRevokeMintRole =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setArtProxy',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'revokeMintRole',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setMaxTime"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsSetMaxTime =
+export const useSimulateAxUsdSetAccountWithdrawalFee =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setMaxTime',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'setAccountWithdrawalFee',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferFrom"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsTransferFrom =
+export const useSimulateAxUsdSetCcipAdmin =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'setCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdSetTotalAssets =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'setTotalAssets',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdSkimBuffer =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'skimBuffer',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdTransfer = /*#__PURE__*/ createUseSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'transfer' },
+)
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdTransferFrom =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'transferFrom',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferOwnership"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsTransferOwnership =
+export const useSimulateAxUsdTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'transferOwnership',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unlockAll"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsUnlockAll =
+export const useSimulateAxUsdUnpauseLocal =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unlockAll',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const useSimulateStakingPositionsUnpauseLocal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'unpauseLocal',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeTo"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsUpgradeTo =
+export const useSimulateAxUsdUpdateApr =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateAPR',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateBufferRate =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateBufferRate',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateDeploymentDelay =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateDeploymentDelay',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateFeeRates =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateFeeRates',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateHighWaterMark =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateHighWaterMark',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateVaultManagers =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateVaultParams =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useSimulateAxUsdUpgradeTo =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'upgradeTo',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsUpgradeToAndCall =
+export const useSimulateAxUsdUpgradeToAndCall =
   /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'upgradeToAndCall',
   })
 
 /**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"withdraw"`
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useSimulateStakingPositionsWithdraw =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'withdraw',
-  })
+export const useSimulateAxUsdWithdraw = /*#__PURE__*/ createUseSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'withdraw' },
+)
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({ abi: stakingPositionsAbi })
+export const useWatchAxUsdEvent = /*#__PURE__*/ createUseWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+})
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"AdminChanged"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"AdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsAdminChangedEvent =
+export const useWatchAxUsdAdminChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'AdminChanged',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Approval"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BeaconUpgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsApprovalEvent =
+export const useWatchAxUsdBeaconUpgradedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BeaconUpgraded',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"APRUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdAprUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'APRUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdAccountWithdrawalFeeSetEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'AccountWithdrawalFeeSet',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Approval"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdApprovalEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Approval',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"ApprovalForAll"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BufferRateUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsApprovalForAllEvent =
+export const useWatchAxUsdBufferRateUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'ApprovalForAll',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BufferRateUpdated',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BatchMetadataUpdate"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BurnAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsBatchMetadataUpdateEvent =
+export const useWatchAxUsdBurnAccessGrantedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BatchMetadataUpdate',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BurnAccessGranted',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BeaconUpgraded"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BurnAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsBeaconUpgradedEvent =
+export const useWatchAxUsdBurnAccessRevokedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BeaconUpgraded',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BurnAccessRevoked',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BreakerActivated"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"CCIPAdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsBreakerActivatedEvent =
+export const useWatchAxUsdCcipAdminChangedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BreakerActivated',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'CCIPAdminChanged',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Deposit"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsDepositEvent =
+export const useWatchAxUsdDeploymentDelayUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'DeploymentDelayUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdDepositEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Deposit',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Initialized"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"FeeRatesUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsInitializedEvent =
+export const useWatchAxUsdFeeRatesUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'FeeRatesUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdHighWaterMarkUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'HighWaterMarkUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Initialized"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdInitializedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Initialized',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"MetadataUpdate"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"MintAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsMetadataUpdateEvent =
+export const useWatchAxUsdMintAccessGrantedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'MetadataUpdate',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'MintAccessGranted',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"MintAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsOwnershipTransferredEvent =
+export const useWatchAxUsdMintAccessRevokedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'MintAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'OwnershipTransferred',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Paused"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsPausedEvent =
+export const useWatchAxUsdPausedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Paused',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Supply"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsSupplyEvent =
+export const useWatchAxUsdRateCheckpointUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Supply',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'RateCheckpointUpdated',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Transfer"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsTransferEvent =
+export const useWatchAxUsdTotalAssetsUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'TotalAssetsUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdTransferEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Transfer',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Unpaused"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Unpaused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsUnpausedEvent =
+export const useWatchAxUsdUnpausedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Unpaused',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Upgraded"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"VaultManagersUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsUpgradedEvent =
+export const useWatchAxUsdVaultManagersUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Upgraded',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'VaultManagersUpdated',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Withdraw"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"VaultParamsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingPositionsWithdrawEvent =
+export const useWatchAxUsdVaultParamsUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'VaultParamsUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const useWatchAxUsdWithdrawEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Withdraw',
   })
 
 /**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useReadStakingRewardsDistributor =
-  /*#__PURE__*/ createUseReadContract({ abi: stakingRewardsDistributorAbi })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"WEEK"`
- */
-export const useReadStakingRewardsDistributorWeek =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'WEEK',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardCursor"`
- */
-export const useReadStakingRewardsDistributorBaseRewardCursor =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardCursor',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardPeriodCursor"`
- */
-export const useReadStakingRewardsDistributorBaseRewardPeriodCursor =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardPeriodCursor',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardPeriods"`
- */
-export const useReadStakingRewardsDistributorBaseRewardPeriods =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardPeriods',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardsPerWeek"`
- */
-export const useReadStakingRewardsDistributorBaseRewardsPerWeek =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardsPerWeek',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimable"`
- */
-export const useReadStakingRewardsDistributorClaimable =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimable',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"cumulativeProtocolRewardsPerToken"`
- */
-export const useReadStakingRewardsDistributorCumulativeProtocolRewardsPerToken =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'cumulativeProtocolRewardsPerToken',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"currentPeriodId"`
- */
-export const useReadStakingRewardsDistributorCurrentPeriodId =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'currentPeriodId',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalOwner"`
- */
-export const useReadStakingRewardsDistributorGlobalOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalOwner',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalPause"`
- */
-export const useReadStakingRewardsDistributorGlobalPause =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalPause',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalRestrict"`
- */
-export const useReadStakingRewardsDistributorGlobalRestrict =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalRestrict',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"isPausedLocal"`
- */
-export const useReadStakingRewardsDistributorIsPausedLocal =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'isPausedLocal',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"lastTokenTime"`
- */
-export const useReadStakingRewardsDistributorLastTokenTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'lastTokenTime',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"owner"`
- */
-export const useReadStakingRewardsDistributorOwner =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'owner',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"paused"`
- */
-export const useReadStakingRewardsDistributorPaused =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'paused',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pendingBaseRewards"`
- */
-export const useReadStakingRewardsDistributorPendingBaseRewards =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pendingBaseRewards',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"protocolRewardsPerTokenPaid"`
- */
-export const useReadStakingRewardsDistributorProtocolRewardsPerTokenPaid =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'protocolRewardsPerTokenPaid',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"proxiableUUID"`
- */
-export const useReadStakingRewardsDistributorProxiableUuid =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'proxiableUUID',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"staking"`
- */
-export const useReadStakingRewardsDistributorStaking =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'staking',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"startTime"`
- */
-export const useReadStakingRewardsDistributorStartTime =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'startTime',
-  })
-
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"token"`
- */
-export const useReadStakingRewardsDistributorToken =
-  /*#__PURE__*/ createUseReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'token',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const useWriteStakingRewardsDistributor =
-  /*#__PURE__*/ createUseWriteContract({ abi: stakingRewardsDistributorAbi })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claim"`
- */
-export const useWriteStakingRewardsDistributorClaim =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claim',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimMany"`
- */
-export const useWriteStakingRewardsDistributorClaimMany =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimMany',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimOnWithdrawal"`
- */
-export const useWriteStakingRewardsDistributorClaimOnWithdrawal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimOnWithdrawal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositBaseRewards"`
- */
-export const useWriteStakingRewardsDistributorDepositBaseRewards =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositBaseRewards',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositProtocolFees"`
- */
-export const useWriteStakingRewardsDistributorDepositProtocolFees =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositProtocolFees',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"initialize"`
- */
-export const useWriteStakingRewardsDistributorInitialize =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"onLockCreated"`
- */
-export const useWriteStakingRewardsDistributorOnLockCreated =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'onLockCreated',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const useWriteStakingRewardsDistributorPauseLocal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const useWriteStakingRewardsDistributorRecoverErc20 =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const useWriteStakingRewardsDistributorRenounceOwnership =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const useWriteStakingRewardsDistributorTransferOwnership =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const useWriteStakingRewardsDistributorUnpauseLocal =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"updateAddresses"`
- */
-export const useWriteStakingRewardsDistributorUpdateAddresses =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'updateAddresses',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const useWriteStakingRewardsDistributorUpgradeTo =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const useWriteStakingRewardsDistributorUpgradeToAndCall =
-  /*#__PURE__*/ createUseWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const useSimulateStakingRewardsDistributor =
-  /*#__PURE__*/ createUseSimulateContract({ abi: stakingRewardsDistributorAbi })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claim"`
- */
-export const useSimulateStakingRewardsDistributorClaim =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claim',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimMany"`
- */
-export const useSimulateStakingRewardsDistributorClaimMany =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimMany',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimOnWithdrawal"`
- */
-export const useSimulateStakingRewardsDistributorClaimOnWithdrawal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimOnWithdrawal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositBaseRewards"`
- */
-export const useSimulateStakingRewardsDistributorDepositBaseRewards =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositBaseRewards',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositProtocolFees"`
- */
-export const useSimulateStakingRewardsDistributorDepositProtocolFees =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositProtocolFees',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"initialize"`
- */
-export const useSimulateStakingRewardsDistributorInitialize =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"onLockCreated"`
- */
-export const useSimulateStakingRewardsDistributorOnLockCreated =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'onLockCreated',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const useSimulateStakingRewardsDistributorPauseLocal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const useSimulateStakingRewardsDistributorRecoverErc20 =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const useSimulateStakingRewardsDistributorRenounceOwnership =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const useSimulateStakingRewardsDistributorTransferOwnership =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const useSimulateStakingRewardsDistributorUnpauseLocal =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"updateAddresses"`
- */
-export const useSimulateStakingRewardsDistributorUpdateAddresses =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'updateAddresses',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const useSimulateStakingRewardsDistributorUpgradeTo =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const useSimulateStakingRewardsDistributorUpgradeToAndCall =
-  /*#__PURE__*/ createUseSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const useWatchStakingRewardsDistributorEvent =
+export const useWatchAxUsdWithdrawalGasFeeUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalGasFeeUpdated',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"AdminChanged"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalProcessed"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingRewardsDistributorAdminChangedEvent =
+export const useWatchAxUsdWithdrawalProcessedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'AdminChanged',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalProcessed',
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BaseRewardsClaimed"`
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalRequested"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const useWatchStakingRewardsDistributorBaseRewardsClaimedEvent =
+export const useWatchAxUsdWithdrawalRequestedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'BaseRewardsClaimed',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BaseRewardsDeposited"`
- */
-export const useWatchStakingRewardsDistributorBaseRewardsDepositedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'BaseRewardsDeposited',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BeaconUpgraded"`
- */
-export const useWatchStakingRewardsDistributorBeaconUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'BeaconUpgraded',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Initialized"`
- */
-export const useWatchStakingRewardsDistributorInitializedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Initialized',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"OwnershipTransferred"`
- */
-export const useWatchStakingRewardsDistributorOwnershipTransferredEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Paused"`
- */
-export const useWatchStakingRewardsDistributorPausedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Paused',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"ProtocolFeesDeposited"`
- */
-export const useWatchStakingRewardsDistributorProtocolFeesDepositedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'ProtocolFeesDeposited',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"ProtocolRewardsClaimed"`
- */
-export const useWatchStakingRewardsDistributorProtocolRewardsClaimedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'ProtocolRewardsClaimed',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Unpaused"`
- */
-export const useWatchStakingRewardsDistributorUnpausedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Unpaused',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Upgraded"`
- */
-export const useWatchStakingRewardsDistributorUpgradedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Upgraded',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalRequested',
   })
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7852,6 +5453,18 @@ export const watchGlobalAccessListBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
+ */
+export const watchGlobalAccessListUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: globalAccessListAbi,
+    address: globalAccessListAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
@@ -7897,18 +5510,6 @@ export const watchGlobalAccessListUnrestrictAccountEvent =
     abi: globalAccessListAbi,
     address: globalAccessListAddress,
     eventName: 'UnrestrictAccount',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalAccessListAbi}__ and `eventName` set to `"Upgraded"`
- *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0x9d20e110a7b33479cA90ed80a4f48CBcfCcD505F)
- */
-export const watchGlobalAccessListUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: globalAccessListAbi,
-    address: globalAccessListAddress,
-    eventName: 'Upgraded',
   })
 
 /**
@@ -8151,6 +5752,18 @@ export const watchGlobalOwnerBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
+ */
+export const watchGlobalOwnerUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: globalOwnerAbi,
+    address: globalOwnerAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
@@ -8184,18 +5797,6 @@ export const watchGlobalOwnerOwnershipTransferredEvent =
     abi: globalOwnerAbi,
     address: globalOwnerAddress,
     eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalOwnerAbi}__ and `eventName` set to `"Upgraded"`
- *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0x705Ee678D187CeAcbA3707C788b7B439b41cF085)
- */
-export const watchGlobalOwnerUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: globalOwnerAbi,
-    address: globalOwnerAddress,
-    eventName: 'Upgraded',
   })
 
 /**
@@ -8469,6 +6070,18 @@ export const watchGlobalPauseBeaconUpgradedEvent =
   })
 
 /**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
+ */
+export const watchGlobalPauseUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: globalPauseAbi,
+    address: globalPauseAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Initialized"`
  *
  * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
@@ -8517,2964 +6130,1902 @@ export const watchGlobalPauseUnpausedEvent =
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link globalPauseAbi}__ and `eventName` set to `"Upgraded"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__
  *
- * [__View Contract on Base Basescan__](https://basescan.org/address/0xcE9541c61bFa94eC8588dcE0B43339A6299EE8CC)
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchGlobalPauseUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: globalPauseAbi,
-    address: globalPauseAddress,
-    eventName: 'Upgraded',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const readLedgityYieldVault = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsd = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"RAY"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"RAY"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultRay = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdRay = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'RAY',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aToken"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"aToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultAToken = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdAToken = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'aToken',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aaveLendingPool"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"aaveLendingPool"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultAaveLendingPool =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'aaveLendingPool',
-  })
+export const readAxUsdAaveLendingPool = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'aaveLendingPool',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultAccountWithdrawalFee =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'accountWithdrawalFee',
-  })
+export const readAxUsdAccountWithdrawalFee = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'accountWithdrawalFee',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"allowance"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"allowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultAllowance = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdAllowance = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'allowance',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"asset"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"asset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultAsset = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdAsset = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'asset',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"balanceOf"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"balanceOf"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultBalanceOf = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdBalanceOf = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'balanceOf',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToAssets"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"convertToAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultConvertToAssets =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'convertToAssets',
-  })
+export const readAxUsdConvertToAssets = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'convertToAssets',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToShares"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"convertToShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultConvertToShares =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'convertToShares',
-  })
+export const readAxUsdConvertToShares = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'convertToShares',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimals"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decimals"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultDecimals = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdDecimals = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'decimals',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimalsOffset"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decimalsOffset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultDecimalsOffset =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decimalsOffset',
-  })
+export const readAxUsdDecimalsOffset = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'decimalsOffset',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deploymentDelay"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultDeploymentDelay =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'deploymentDelay',
-  })
+export const readAxUsdDeploymentDelay = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'deploymentDelay',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"feeRecipient"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"feeRecipient"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultFeeRecipient =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'feeRecipient',
-  })
+export const readAxUsdFeeRecipient = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'feeRecipient',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getBufferAssets"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getBufferAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetBufferAssets =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getBufferAssets',
-  })
+export const readAxUsdGetBufferAssets = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getBufferAssets',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetCcipAdmin =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getCCIPAdmin',
-  })
+export const readAxUsdGetCcipAdmin = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getCCIPAdmin',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getFeeData"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getFeeData"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetFeeData = /*#__PURE__*/ createReadContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'getFeeData' },
-)
+export const readAxUsdGetFeeData = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getFeeData',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetUserWithdrawalRequests =
+export const readAxUsdGetUserWithdrawalRequests =
   /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getUserWithdrawalRequests',
   })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetWithdrawalRequestCount =
+export const readAxUsdGetWithdrawalRequestCount =
   /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getWithdrawalRequestCount',
   })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetWithdrawalRequests =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'getWithdrawalRequests',
-  })
+export const readAxUsdGetWithdrawalRequests = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'getWithdrawalRequests',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGetWithdrawalRequestsByIds =
+export const readAxUsdGetWithdrawalRequestsByIds =
   /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'getWithdrawalRequestsByIds',
   })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalOwner"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalOwner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGlobalOwner =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalOwner',
-  })
+export const readAxUsdGlobalOwner = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalOwner',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalPause"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalPause"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGlobalPause =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalPause',
-  })
+export const readAxUsdGlobalPause = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalPause',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalRestrict"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"globalRestrict"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultGlobalRestrict =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'globalRestrict',
-  })
+export const readAxUsdGlobalRestrict = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'globalRestrict',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultHasBufferStrategy =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'hasBufferStrategy',
-  })
+export const readAxUsdHasBufferStrategy = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'hasBufferStrategy',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"highWaterMark"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"highWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultHighWaterMark =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'highWaterMark',
-  })
+export const readAxUsdHighWaterMark = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'highWaterMark',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isBurner"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isBurner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultIsBurner = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdIsBurner = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'isBurner',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isMinter"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isMinter"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultIsMinter = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdIsMinter = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'isMinter',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isPausedLocal"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"isPausedLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultIsPausedLocal =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'isPausedLocal',
-  })
+export const readAxUsdIsPausedLocal = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'isPausedLocal',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lToken"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultLToken = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdLToken = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'lToken',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastCompoundTime"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lastCompoundTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultLastCompoundTime =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'lastCompoundTime',
-  })
+export const readAxUsdLastCompoundTime = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'lastCompoundTime',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastFeeTime"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"lastFeeTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultLastFeeTime =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'lastFeeTime',
-  })
+export const readAxUsdLastFeeTime = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'lastFeeTime',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultLiquidityBufferRate =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'liquidityBufferRate',
-  })
+export const readAxUsdLiquidityBufferRate = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'liquidityBufferRate',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityManager"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"liquidityManager"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultLiquidityManager =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'liquidityManager',
-  })
+export const readAxUsdLiquidityManager = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'liquidityManager',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"managementFeeRate"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"managementFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultManagementFeeRate =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'managementFeeRate',
-  })
+export const readAxUsdManagementFeeRate = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'managementFeeRate',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxDeposit"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultMaxDeposit = /*#__PURE__*/ createReadContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'maxDeposit' },
-)
+export const readAxUsdMaxDeposit = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxDeposit',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxMint"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultMaxMint = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdMaxMint = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'maxMint',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxRedeem"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultMaxRedeem = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdMaxRedeem = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'maxRedeem',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxWithdraw"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"maxWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultMaxWithdraw =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'maxWithdraw',
-  })
+export const readAxUsdMaxWithdraw = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'maxWithdraw',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"name"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"name"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultName = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdName = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'name',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"owner"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"owner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultOwner = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdOwner = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'owner',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"paused"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPaused = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdPaused = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'paused',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"performanceFeeRate"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"performanceFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPerformanceFeeRate =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'performanceFeeRate',
-  })
+export const readAxUsdPerformanceFeeRate = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'performanceFeeRate',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewDeposit"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPreviewDeposit =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewDeposit',
-  })
+export const readAxUsdPreviewDeposit = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewDeposit',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewMint"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPreviewMint =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewMint',
-  })
+export const readAxUsdPreviewMint = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewMint',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewRedeem"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPreviewRedeem =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewRedeem',
-  })
+export const readAxUsdPreviewRedeem = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewRedeem',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewWithdraw"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"previewWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultPreviewWithdraw =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'previewWithdraw',
-  })
+export const readAxUsdPreviewWithdraw = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'previewWithdraw',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"proxiableUUID"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"proxiableUUID"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultProxiableUuid =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'proxiableUUID',
-  })
+export const readAxUsdProxiableUuid = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'proxiableUUID',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForFeeReduction"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeForFeeReduction"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultStakeForFeeReduction =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'stakeForFeeReduction',
-  })
+export const readAxUsdStakeForFeeReduction = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'stakeForFeeReduction',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultStakeForInstantWithdrawal =
+export const readAxUsdStakeForInstantWithdrawal =
   /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'stakeForInstantWithdrawal',
   })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeToken"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"stakeToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultStakeToken = /*#__PURE__*/ createReadContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'stakeToken' },
-)
+export const readAxUsdStakeToken = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'stakeToken',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"symbol"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"symbol"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultSymbol = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdSymbol = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'symbol',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalAssets"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"totalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultTotalAssets =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'totalAssets',
-  })
+export const readAxUsdTotalAssets = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'totalAssets',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalSupply"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"totalSupply"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultTotalSupply =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'totalSupply',
-  })
+export const readAxUsdTotalSupply = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'totalSupply',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalFeeRate"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultWithdrawalFeeRate =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalFeeRate',
-  })
+export const readAxUsdWithdrawalFeeRate = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'withdrawalFeeRate',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalGasFee"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultWithdrawalGasFee =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalGasFee',
-  })
+export const readAxUsdWithdrawalGasFee = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'withdrawalGasFee',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalRequests"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultWithdrawalRequests =
-  /*#__PURE__*/ createReadContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdrawalRequests',
-  })
+export const readAxUsdWithdrawalRequests = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'withdrawalRequests',
+})
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"yieldAPR"`
+ * Wraps __{@link readContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"yieldAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readLedgityYieldVaultYieldApr = /*#__PURE__*/ createReadContract({
-  abi: ledgityYieldVaultAbi,
+export const readAxUsdYieldApr = /*#__PURE__*/ createReadContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'yieldAPR',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVault = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsd = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultApprove = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdApprove = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'approve',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultBurn = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdBurn = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'burn',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultBurnAndRemintBlacklistedShares =
+export const writeAxUsdBurnAndRemintBlacklistedShares =
   /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'burnAndRemintBlacklistedShares',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultDecreaseAllowance =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decreaseAllowance',
-  })
+export const writeAxUsdDecreaseAllowance = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'decreaseAllowance',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultDeposit = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdDeposit = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'deposit',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultDepositToBuffer =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'depositToBuffer',
-  })
+export const writeAxUsdDepositToBuffer = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'depositToBuffer',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultGrantBurnRole =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantBurnRole',
-  })
+export const writeAxUsdGrantBurnRole = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantBurnRole',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultGrantMintRole =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantMintRole',
-  })
+export const writeAxUsdGrantMintRole = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantMintRole',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultHarvestFees =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'harvestFees',
-  })
+export const writeAxUsdHarvestFees = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'harvestFees',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultIncreaseAllowance =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'increaseAllowance',
-  })
+export const writeAxUsdIncreaseAllowance = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'increaseAllowance',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultInitialize =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'initialize',
-  })
+export const writeAxUsdInitialize = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'initialize',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultMigrateLToken =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'migrateLToken',
-  })
+export const writeAxUsdMigrateLToken = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'migrateLToken',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultMint = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdMint = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'mint',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultPauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'pauseLocal',
-  })
+export const writeAxUsdPauseLocal = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'pauseLocal',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultProcessRequests =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'processRequests',
-  })
+export const writeAxUsdProcessRequests = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'processRequests',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRecoverErc20 =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'recoverERC20',
-  })
+export const writeAxUsdRecoverErc20 = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'recoverERC20',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRedeem = /*#__PURE__*/ createWriteContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdRedeem = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'redeem',
 })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRenounceOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'renounceOwnership',
-  })
+export const writeAxUsdRenounceOwnership = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'renounceOwnership',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRequestWithdrawal =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'requestWithdrawal',
-  })
+export const writeAxUsdRequestWithdrawal = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'requestWithdrawal',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRevokeBurnRole =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeBurnRole',
-  })
+export const writeAxUsdRevokeBurnRole = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'revokeBurnRole',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultRevokeMintRole =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeMintRole',
-  })
+export const writeAxUsdRevokeMintRole = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'revokeMintRole',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultSetAccountWithdrawalFee =
+export const writeAxUsdSetAccountWithdrawalFee =
   /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'setAccountWithdrawalFee',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultSetCcipAdmin =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setCCIPAdmin',
-  })
+export const writeAxUsdSetCcipAdmin = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'setCCIPAdmin',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultSetTotalAssets =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setTotalAssets',
-  })
+export const writeAxUsdSetTotalAssets = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'setTotalAssets',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultSkimBuffer =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'skimBuffer',
-  })
+export const writeAxUsdSkimBuffer = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'skimBuffer',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultTransfer = /*#__PURE__*/ createWriteContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'transfer' },
-)
+export const writeAxUsdTransfer = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transfer',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultTransferFrom =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferFrom',
-  })
+export const writeAxUsdTransferFrom = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transferFrom',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultTransferOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferOwnership',
-  })
+export const writeAxUsdTransferOwnership = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transferOwnership',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUnpauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'unpauseLocal',
-  })
+export const writeAxUsdUnpauseLocal = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'unpauseLocal',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateApr =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateAPR',
-  })
+export const writeAxUsdUpdateApr = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateAPR',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateBufferRate =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateBufferRate',
-  })
+export const writeAxUsdUpdateBufferRate = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateBufferRate',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateDeploymentDelay =
+export const writeAxUsdUpdateDeploymentDelay =
   /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'updateDeploymentDelay',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateFeeRates =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateFeeRates',
-  })
+export const writeAxUsdUpdateFeeRates = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateFeeRates',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateHighWaterMark =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateHighWaterMark',
-  })
+export const writeAxUsdUpdateHighWaterMark = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateHighWaterMark',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateVaultManagers =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultManagers',
-  })
+export const writeAxUsdUpdateVaultManagers = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateVaultManagers',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateVaultParams =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultParams',
-  })
+export const writeAxUsdUpdateVaultParams = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateVaultParams',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpdateWithdrawalGasFee =
+export const writeAxUsdUpdateWithdrawalGasFee =
   /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'updateWithdrawalGasFee',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeLedgityYieldVaultUpgradeTo =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const writeLedgityYieldVaultUpgradeToAndCall =
-  /*#__PURE__*/ createWriteContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
- */
-export const writeLedgityYieldVaultWithdraw = /*#__PURE__*/ createWriteContract(
-  { abi: ledgityYieldVaultAbi, functionName: 'withdraw' },
-)
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const simulateLedgityYieldVault = /*#__PURE__*/ createSimulateContract({
-  abi: ledgityYieldVaultAbi,
+export const writeAxUsdUpgradeTo = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'upgradeTo',
 })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
- */
-export const simulateLedgityYieldVaultApprove =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'approve',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
- */
-export const simulateLedgityYieldVaultBurn =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burn',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
- */
-export const simulateLedgityYieldVaultBurnAndRemintBlacklistedShares =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'burnAndRemintBlacklistedShares',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
- */
-export const simulateLedgityYieldVaultDecreaseAllowance =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'decreaseAllowance',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
- */
-export const simulateLedgityYieldVaultDeposit =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'deposit',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
- */
-export const simulateLedgityYieldVaultDepositToBuffer =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'depositToBuffer',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
- */
-export const simulateLedgityYieldVaultGrantBurnRole =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantBurnRole',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
- */
-export const simulateLedgityYieldVaultGrantMintRole =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'grantMintRole',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
- */
-export const simulateLedgityYieldVaultHarvestFees =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'harvestFees',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
- */
-export const simulateLedgityYieldVaultIncreaseAllowance =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'increaseAllowance',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
- */
-export const simulateLedgityYieldVaultInitialize =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
- */
-export const simulateLedgityYieldVaultMigrateLToken =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'migrateLToken',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
- */
-export const simulateLedgityYieldVaultMint =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'mint',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const simulateLedgityYieldVaultPauseLocal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
- */
-export const simulateLedgityYieldVaultProcessRequests =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'processRequests',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const simulateLedgityYieldVaultRecoverErc20 =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
- */
-export const simulateLedgityYieldVaultRedeem =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'redeem',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const simulateLedgityYieldVaultRenounceOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
- */
-export const simulateLedgityYieldVaultRequestWithdrawal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'requestWithdrawal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
- */
-export const simulateLedgityYieldVaultRevokeBurnRole =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeBurnRole',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
- */
-export const simulateLedgityYieldVaultRevokeMintRole =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'revokeMintRole',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
- */
-export const simulateLedgityYieldVaultSetAccountWithdrawalFee =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setAccountWithdrawalFee',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
- */
-export const simulateLedgityYieldVaultSetCcipAdmin =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setCCIPAdmin',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
- */
-export const simulateLedgityYieldVaultSetTotalAssets =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'setTotalAssets',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
- */
-export const simulateLedgityYieldVaultSkimBuffer =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'skimBuffer',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
- */
-export const simulateLedgityYieldVaultTransfer =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transfer',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
- */
-export const simulateLedgityYieldVaultTransferFrom =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferFrom',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const simulateLedgityYieldVaultTransferOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const simulateLedgityYieldVaultUnpauseLocal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
- */
-export const simulateLedgityYieldVaultUpdateApr =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateAPR',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
- */
-export const simulateLedgityYieldVaultUpdateBufferRate =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateBufferRate',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
- */
-export const simulateLedgityYieldVaultUpdateDeploymentDelay =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateDeploymentDelay',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
- */
-export const simulateLedgityYieldVaultUpdateFeeRates =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateFeeRates',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
- */
-export const simulateLedgityYieldVaultUpdateHighWaterMark =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateHighWaterMark',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
- */
-export const simulateLedgityYieldVaultUpdateVaultManagers =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultManagers',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
- */
-export const simulateLedgityYieldVaultUpdateVaultParams =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateVaultParams',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
- */
-export const simulateLedgityYieldVaultUpdateWithdrawalGasFee =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'updateWithdrawalGasFee',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const simulateLedgityYieldVaultUpgradeTo =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const simulateLedgityYieldVaultUpgradeToAndCall =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
- */
-export const simulateLedgityYieldVaultWithdraw =
-  /*#__PURE__*/ createSimulateContract({
-    abi: ledgityYieldVaultAbi,
-    functionName: 'withdraw',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
- */
-export const watchLedgityYieldVaultEvent =
-  /*#__PURE__*/ createWatchContractEvent({ abi: ledgityYieldVaultAbi })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"APRUpdated"`
- */
-export const watchLedgityYieldVaultAprUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'APRUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
- */
-export const watchLedgityYieldVaultAccountWithdrawalFeeSetEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'AccountWithdrawalFeeSet',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AdminChanged"`
- */
-export const watchLedgityYieldVaultAdminChangedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'AdminChanged',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Approval"`
- */
-export const watchLedgityYieldVaultApprovalEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Approval',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BeaconUpgraded"`
- */
-export const watchLedgityYieldVaultBeaconUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BeaconUpgraded',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BufferRateUpdated"`
- */
-export const watchLedgityYieldVaultBufferRateUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BufferRateUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessGranted"`
- */
-export const watchLedgityYieldVaultBurnAccessGrantedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BurnAccessGranted',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessRevoked"`
- */
-export const watchLedgityYieldVaultBurnAccessRevokedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'BurnAccessRevoked',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"CCIPAdminChanged"`
- */
-export const watchLedgityYieldVaultCcipAdminChangedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'CCIPAdminChanged',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
- */
-export const watchLedgityYieldVaultDeploymentDelayUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'DeploymentDelayUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Deposit"`
- */
-export const watchLedgityYieldVaultDepositEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Deposit',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"FeeRatesUpdated"`
- */
-export const watchLedgityYieldVaultFeeRatesUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'FeeRatesUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
- */
-export const watchLedgityYieldVaultHighWaterMarkUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'HighWaterMarkUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Initialized"`
- */
-export const watchLedgityYieldVaultInitializedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Initialized',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessGranted"`
- */
-export const watchLedgityYieldVaultMintAccessGrantedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'MintAccessGranted',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessRevoked"`
- */
-export const watchLedgityYieldVaultMintAccessRevokedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'MintAccessRevoked',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"OwnershipTransferred"`
- */
-export const watchLedgityYieldVaultOwnershipTransferredEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Paused"`
- */
-export const watchLedgityYieldVaultPausedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Paused',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
- */
-export const watchLedgityYieldVaultRateCheckpointUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'RateCheckpointUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
- */
-export const watchLedgityYieldVaultTotalAssetsUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'TotalAssetsUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Transfer"`
- */
-export const watchLedgityYieldVaultTransferEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Transfer',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Unpaused"`
- */
-export const watchLedgityYieldVaultUnpausedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Unpaused',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Upgraded"`
- */
-export const watchLedgityYieldVaultUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Upgraded',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultManagersUpdated"`
- */
-export const watchLedgityYieldVaultVaultManagersUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'VaultManagersUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultParamsUpdated"`
- */
-export const watchLedgityYieldVaultVaultParamsUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'VaultParamsUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Withdraw"`
- */
-export const watchLedgityYieldVaultWithdrawEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'Withdraw',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
- */
-export const watchLedgityYieldVaultWithdrawalGasFeeUpdatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalGasFeeUpdated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalProcessed"`
- */
-export const watchLedgityYieldVaultWithdrawalProcessedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalProcessed',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalRequested"`
- */
-export const watchLedgityYieldVaultWithdrawalRequestedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: ledgityYieldVaultAbi,
-    eventName: 'WithdrawalRequested',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__
- */
-export const readStakingPositions = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const writeAxUsdUpgradeToAndCall = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'upgradeToAndCall',
 })
 
 /**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"artProxy"`
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const readStakingPositionsArtProxy = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'artProxy',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOf"`
- */
-export const readStakingPositionsBalanceOf = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'balanceOf',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfAccountNFT"`
- */
-export const readStakingPositionsBalanceOfAccountNft =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfAccountNFT',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfNFT"`
- */
-export const readStakingPositionsBalanceOfNft =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfNFT',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"balanceOfNFTAt"`
- */
-export const readStakingPositionsBalanceOfNftAt =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'balanceOfNFTAt',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"breaker"`
- */
-export const readStakingPositionsBreaker = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'breaker',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"decimals"`
- */
-export const readStakingPositionsDecimals = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'decimals',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"epoch"`
- */
-export const readStakingPositionsEpoch = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'epoch',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getApproved"`
- */
-export const readStakingPositionsGetApproved = /*#__PURE__*/ createReadContract(
-  { abi: stakingPositionsAbi, functionName: 'getApproved' },
-)
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getLockedBalance"`
- */
-export const readStakingPositionsGetLockedBalance =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getLockedBalance',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getPointHistory"`
- */
-export const readStakingPositionsGetPointHistory =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getPointHistory',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserNFTs"`
- */
-export const readStakingPositionsGetUserNfTs = /*#__PURE__*/ createReadContract(
-  { abi: stakingPositionsAbi, functionName: 'getUserNFTs' },
-)
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserPointHistory"`
- */
-export const readStakingPositionsGetUserPointHistory =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserPointHistory',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserTotalVotingPower"`
- */
-export const readStakingPositionsGetUserTotalVotingPower =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserTotalVotingPower',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"getUserTotalVotingPowerAt"`
- */
-export const readStakingPositionsGetUserTotalVotingPowerAt =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'getUserTotalVotingPowerAt',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalOwner"`
- */
-export const readStakingPositionsGlobalOwner = /*#__PURE__*/ createReadContract(
-  { abi: stakingPositionsAbi, functionName: 'globalOwner' },
-)
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalPause"`
- */
-export const readStakingPositionsGlobalPause = /*#__PURE__*/ createReadContract(
-  { abi: stakingPositionsAbi, functionName: 'globalPause' },
-)
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"globalRestrict"`
- */
-export const readStakingPositionsGlobalRestrict =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'globalRestrict',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"iMaxTime"`
- */
-export const readStakingPositionsIMaxTime = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'iMaxTime',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isApprovedForAll"`
- */
-export const readStakingPositionsIsApprovedForAll =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isApprovedForAll',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isApprovedOrOwner"`
- */
-export const readStakingPositionsIsApprovedOrOwner =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isApprovedOrOwner',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"isPausedLocal"`
- */
-export const readStakingPositionsIsPausedLocal =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'isPausedLocal',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"maxTime"`
- */
-export const readStakingPositionsMaxTime = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'maxTime',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"name"`
- */
-export const readStakingPositionsName = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'name',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"owner"`
- */
-export const readStakingPositionsOwner = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'owner',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"ownerOf"`
- */
-export const readStakingPositionsOwnerOf = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'ownerOf',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"ownerToNFTokenIdList"`
- */
-export const readStakingPositionsOwnerToNfTokenIdList =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'ownerToNFTokenIdList',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"paused"`
- */
-export const readStakingPositionsPaused = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'paused',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"proxiableUUID"`
- */
-export const readStakingPositionsProxiableUuid =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'proxiableUUID',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"rewardsDistributor"`
- */
-export const readStakingPositionsRewardsDistributor =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'rewardsDistributor',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"slopeChanges"`
- */
-export const readStakingPositionsSlopeChanges =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'slopeChanges',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"supply"`
- */
-export const readStakingPositionsSupply = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'supply',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"supportsInterface"`
- */
-export const readStakingPositionsSupportsInterface =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'supportsInterface',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"symbol"`
- */
-export const readStakingPositionsSymbol = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'symbol',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"token"`
- */
-export const readStakingPositionsToken = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'token',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"tokenId"`
- */
-export const readStakingPositionsTokenId = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'tokenId',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"tokenURI"`
- */
-export const readStakingPositionsTokenUri = /*#__PURE__*/ createReadContract({
-  abi: stakingPositionsAbi,
-  functionName: 'tokenURI',
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"totalSupply"`
- */
-export const readStakingPositionsTotalSupply = /*#__PURE__*/ createReadContract(
-  { abi: stakingPositionsAbi, functionName: 'totalSupply' },
-)
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"totalSupplyAt"`
- */
-export const readStakingPositionsTotalSupplyAt =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'totalSupplyAt',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"userPointEpoch"`
- */
-export const readStakingPositionsUserPointEpoch =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingPositionsAbi,
-    functionName: 'userPointEpoch',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__
- */
-export const writeStakingPositions = /*#__PURE__*/ createWriteContract({
-  abi: stakingPositionsAbi,
-})
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"approve"`
- */
-export const writeStakingPositionsApprove = /*#__PURE__*/ createWriteContract({
-  abi: stakingPositionsAbi,
-  functionName: 'approve',
-})
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"checkpoint"`
- */
-export const writeStakingPositionsCheckpoint =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'checkpoint',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"createLock"`
- */
-export const writeStakingPositionsCreateLock =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'createLock',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"depositFor"`
- */
-export const writeStakingPositionsDepositFor =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'depositFor',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseAmount"`
- */
-export const writeStakingPositionsIncreaseAmount =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseAmount',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseUnlockTime"`
- */
-export const writeStakingPositionsIncreaseUnlockTime =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseUnlockTime',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"initialize"`
- */
-export const writeStakingPositionsInitialize =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const writeStakingPositionsPauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const writeStakingPositionsRecoverErc20 =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const writeStakingPositionsRenounceOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"safeTransferFrom"`
- */
-export const writeStakingPositionsSafeTransferFrom =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'safeTransferFrom',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setApprovalForAll"`
- */
-export const writeStakingPositionsSetApprovalForAll =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setApprovalForAll',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setArtProxy"`
- */
-export const writeStakingPositionsSetArtProxy =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setArtProxy',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setMaxTime"`
- */
-export const writeStakingPositionsSetMaxTime =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setMaxTime',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferFrom"`
- */
-export const writeStakingPositionsTransferFrom =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'transferFrom',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const writeStakingPositionsTransferOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unlockAll"`
- */
-export const writeStakingPositionsUnlockAll = /*#__PURE__*/ createWriteContract(
-  { abi: stakingPositionsAbi, functionName: 'unlockAll' },
-)
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const writeStakingPositionsUnpauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const writeStakingPositionsUpgradeTo = /*#__PURE__*/ createWriteContract(
-  { abi: stakingPositionsAbi, functionName: 'upgradeTo' },
-)
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const writeStakingPositionsUpgradeToAndCall =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingPositionsAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"withdraw"`
- */
-export const writeStakingPositionsWithdraw = /*#__PURE__*/ createWriteContract({
-  abi: stakingPositionsAbi,
+export const writeAxUsdWithdraw = /*#__PURE__*/ createWriteContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
   functionName: 'withdraw',
 })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositions = /*#__PURE__*/ createSimulateContract({
-  abi: stakingPositionsAbi,
+export const simulateAxUsd = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
 })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"approve"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsApprove =
+export const simulateAxUsdApprove = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'approve',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdBurn = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'burn',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdBurnAndRemintBlacklistedShares =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'approve',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"checkpoint"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsCheckpoint =
+export const simulateAxUsdDecreaseAllowance =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'checkpoint',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'decreaseAllowance',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"createLock"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsCreateLock =
+export const simulateAxUsdDeposit = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'deposit',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdDepositToBuffer =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'createLock',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'depositToBuffer',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"depositFor"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsDepositFor =
+export const simulateAxUsdGrantBurnRole = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantBurnRole',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdGrantMintRole = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'grantMintRole',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdHarvestFees = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'harvestFees',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdIncreaseAllowance =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'depositFor',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'increaseAllowance',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseAmount"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsIncreaseAmount =
+export const simulateAxUsdInitialize = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'initialize',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdMigrateLToken = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'migrateLToken',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdMint = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'mint',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdPauseLocal = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'pauseLocal',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdProcessRequests =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseAmount',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'processRequests',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"increaseUnlockTime"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsIncreaseUnlockTime =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'increaseUnlockTime',
-  })
+export const simulateAxUsdRecoverErc20 = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'recoverERC20',
+})
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"initialize"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsInitialize =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'initialize',
-  })
+export const simulateAxUsdRedeem = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'redeem',
+})
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"pauseLocal"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsPauseLocal =
+export const simulateAxUsdRenounceOwnership =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const simulateStakingPositionsRecoverErc20 =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const simulateStakingPositionsRenounceOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'renounceOwnership',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"safeTransferFrom"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsSafeTransferFrom =
+export const simulateAxUsdRequestWithdrawal =
   /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'safeTransferFrom',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'requestWithdrawal',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setApprovalForAll"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingPositionsSetApprovalForAll =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setApprovalForAll',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setArtProxy"`
- */
-export const simulateStakingPositionsSetArtProxy =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setArtProxy',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"setMaxTime"`
- */
-export const simulateStakingPositionsSetMaxTime =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'setMaxTime',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferFrom"`
- */
-export const simulateStakingPositionsTransferFrom =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'transferFrom',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const simulateStakingPositionsTransferOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unlockAll"`
- */
-export const simulateStakingPositionsUnlockAll =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unlockAll',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const simulateStakingPositionsUnpauseLocal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const simulateStakingPositionsUpgradeTo =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const simulateStakingPositionsUpgradeToAndCall =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingPositionsAbi}__ and `functionName` set to `"withdraw"`
- */
-export const simulateStakingPositionsWithdraw =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingPositionsAbi,
-    functionName: 'withdraw',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__
- */
-export const watchStakingPositionsEvent =
-  /*#__PURE__*/ createWatchContractEvent({ abi: stakingPositionsAbi })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"AdminChanged"`
- */
-export const watchStakingPositionsAdminChangedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'AdminChanged',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Approval"`
- */
-export const watchStakingPositionsApprovalEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Approval',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"ApprovalForAll"`
- */
-export const watchStakingPositionsApprovalForAllEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'ApprovalForAll',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BatchMetadataUpdate"`
- */
-export const watchStakingPositionsBatchMetadataUpdateEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BatchMetadataUpdate',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BeaconUpgraded"`
- */
-export const watchStakingPositionsBeaconUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BeaconUpgraded',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"BreakerActivated"`
- */
-export const watchStakingPositionsBreakerActivatedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'BreakerActivated',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Deposit"`
- */
-export const watchStakingPositionsDepositEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Deposit',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Initialized"`
- */
-export const watchStakingPositionsInitializedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Initialized',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"MetadataUpdate"`
- */
-export const watchStakingPositionsMetadataUpdateEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'MetadataUpdate',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"OwnershipTransferred"`
- */
-export const watchStakingPositionsOwnershipTransferredEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'OwnershipTransferred',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Paused"`
- */
-export const watchStakingPositionsPausedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Paused',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Supply"`
- */
-export const watchStakingPositionsSupplyEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Supply',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Transfer"`
- */
-export const watchStakingPositionsTransferEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Transfer',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Unpaused"`
- */
-export const watchStakingPositionsUnpausedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Unpaused',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Upgraded"`
- */
-export const watchStakingPositionsUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Upgraded',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingPositionsAbi}__ and `eventName` set to `"Withdraw"`
- */
-export const watchStakingPositionsWithdrawEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingPositionsAbi,
-    eventName: 'Withdraw',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const readStakingRewardsDistributor = /*#__PURE__*/ createReadContract({
-  abi: stakingRewardsDistributorAbi,
-})
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"WEEK"`
- */
-export const readStakingRewardsDistributorWeek =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'WEEK',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardCursor"`
- */
-export const readStakingRewardsDistributorBaseRewardCursor =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardCursor',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardPeriodCursor"`
- */
-export const readStakingRewardsDistributorBaseRewardPeriodCursor =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardPeriodCursor',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardPeriods"`
- */
-export const readStakingRewardsDistributorBaseRewardPeriods =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardPeriods',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"baseRewardsPerWeek"`
- */
-export const readStakingRewardsDistributorBaseRewardsPerWeek =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'baseRewardsPerWeek',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimable"`
- */
-export const readStakingRewardsDistributorClaimable =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimable',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"cumulativeProtocolRewardsPerToken"`
- */
-export const readStakingRewardsDistributorCumulativeProtocolRewardsPerToken =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'cumulativeProtocolRewardsPerToken',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"currentPeriodId"`
- */
-export const readStakingRewardsDistributorCurrentPeriodId =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'currentPeriodId',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalOwner"`
- */
-export const readStakingRewardsDistributorGlobalOwner =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalOwner',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalPause"`
- */
-export const readStakingRewardsDistributorGlobalPause =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalPause',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"globalRestrict"`
- */
-export const readStakingRewardsDistributorGlobalRestrict =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'globalRestrict',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"isPausedLocal"`
- */
-export const readStakingRewardsDistributorIsPausedLocal =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'isPausedLocal',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"lastTokenTime"`
- */
-export const readStakingRewardsDistributorLastTokenTime =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'lastTokenTime',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"owner"`
- */
-export const readStakingRewardsDistributorOwner =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'owner',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"paused"`
- */
-export const readStakingRewardsDistributorPaused =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'paused',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pendingBaseRewards"`
- */
-export const readStakingRewardsDistributorPendingBaseRewards =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pendingBaseRewards',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"protocolRewardsPerTokenPaid"`
- */
-export const readStakingRewardsDistributorProtocolRewardsPerTokenPaid =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'protocolRewardsPerTokenPaid',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"proxiableUUID"`
- */
-export const readStakingRewardsDistributorProxiableUuid =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'proxiableUUID',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"staking"`
- */
-export const readStakingRewardsDistributorStaking =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'staking',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"startTime"`
- */
-export const readStakingRewardsDistributorStartTime =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'startTime',
-  })
-
-/**
- * Wraps __{@link readContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"token"`
- */
-export const readStakingRewardsDistributorToken =
-  /*#__PURE__*/ createReadContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'token',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const writeStakingRewardsDistributor = /*#__PURE__*/ createWriteContract(
-  { abi: stakingRewardsDistributorAbi },
+export const simulateAxUsdRevokeBurnRole = /*#__PURE__*/ createSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'revokeBurnRole' },
 )
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claim"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorClaim =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claim',
+export const simulateAxUsdRevokeMintRole = /*#__PURE__*/ createSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'revokeMintRole' },
+)
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdSetAccountWithdrawalFee =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'setAccountWithdrawalFee',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimMany"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorClaimMany =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimMany',
-  })
+export const simulateAxUsdSetCcipAdmin = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'setCCIPAdmin',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimOnWithdrawal"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorClaimOnWithdrawal =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimOnWithdrawal',
-  })
+export const simulateAxUsdSetTotalAssets = /*#__PURE__*/ createSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'setTotalAssets' },
+)
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositBaseRewards"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorDepositBaseRewards =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositBaseRewards',
-  })
+export const simulateAxUsdSkimBuffer = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'skimBuffer',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositProtocolFees"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorDepositProtocolFees =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositProtocolFees',
-  })
+export const simulateAxUsdTransfer = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transfer',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"initialize"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorInitialize =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'initialize',
-  })
+export const simulateAxUsdTransferFrom = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'transferFrom',
+})
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"onLockCreated"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorOnLockCreated =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'onLockCreated',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const writeStakingRewardsDistributorPauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const writeStakingRewardsDistributorRecoverErc20 =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const writeStakingRewardsDistributorRenounceOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const writeStakingRewardsDistributorTransferOwnership =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
+export const simulateAxUsdTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'transferOwnership',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"unpauseLocal"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorUnpauseLocal =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'unpauseLocal',
+export const simulateAxUsdUnpauseLocal = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'unpauseLocal',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpdateApr = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'updateAPR',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpdateBufferRate =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateBufferRate',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"updateAddresses"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorUpdateAddresses =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'updateAddresses',
+export const simulateAxUsdUpdateDeploymentDelay =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateDeploymentDelay',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeTo"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorUpgradeTo =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeTo',
+export const simulateAxUsdUpdateFeeRates = /*#__PURE__*/ createSimulateContract(
+  { abi: axUsdAbi, address: axUsdAddress, functionName: 'updateFeeRates' },
+)
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpdateHighWaterMark =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateHighWaterMark',
   })
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const writeStakingRewardsDistributorUpgradeToAndCall =
-  /*#__PURE__*/ createWriteContract({
-    abi: stakingRewardsDistributorAbi,
+export const simulateAxUsdUpdateVaultManagers =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpdateVaultParams =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpgradeTo = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'upgradeTo',
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const simulateAxUsdUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     functionName: 'upgradeToAndCall',
   })
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link axUsdAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingRewardsDistributor =
-  /*#__PURE__*/ createSimulateContract({ abi: stakingRewardsDistributorAbi })
+export const simulateAxUsdWithdraw = /*#__PURE__*/ createSimulateContract({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  functionName: 'withdraw',
+})
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claim"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingRewardsDistributorClaim =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claim',
-  })
+export const watchAxUsdEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+})
 
 /**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimMany"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"AdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const simulateStakingRewardsDistributorClaimMany =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimMany',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"claimOnWithdrawal"`
- */
-export const simulateStakingRewardsDistributorClaimOnWithdrawal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'claimOnWithdrawal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositBaseRewards"`
- */
-export const simulateStakingRewardsDistributorDepositBaseRewards =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositBaseRewards',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"depositProtocolFees"`
- */
-export const simulateStakingRewardsDistributorDepositProtocolFees =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'depositProtocolFees',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"initialize"`
- */
-export const simulateStakingRewardsDistributorInitialize =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'initialize',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"onLockCreated"`
- */
-export const simulateStakingRewardsDistributorOnLockCreated =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'onLockCreated',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"pauseLocal"`
- */
-export const simulateStakingRewardsDistributorPauseLocal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'pauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"recoverERC20"`
- */
-export const simulateStakingRewardsDistributorRecoverErc20 =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'recoverERC20',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"renounceOwnership"`
- */
-export const simulateStakingRewardsDistributorRenounceOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'renounceOwnership',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"transferOwnership"`
- */
-export const simulateStakingRewardsDistributorTransferOwnership =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'transferOwnership',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"unpauseLocal"`
- */
-export const simulateStakingRewardsDistributorUnpauseLocal =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'unpauseLocal',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"updateAddresses"`
- */
-export const simulateStakingRewardsDistributorUpdateAddresses =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'updateAddresses',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeTo"`
- */
-export const simulateStakingRewardsDistributorUpgradeTo =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeTo',
-  })
-
-/**
- * Wraps __{@link simulateContract}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `functionName` set to `"upgradeToAndCall"`
- */
-export const simulateStakingRewardsDistributorUpgradeToAndCall =
-  /*#__PURE__*/ createSimulateContract({
-    abi: stakingRewardsDistributorAbi,
-    functionName: 'upgradeToAndCall',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__
- */
-export const watchStakingRewardsDistributorEvent =
-  /*#__PURE__*/ createWatchContractEvent({ abi: stakingRewardsDistributorAbi })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"AdminChanged"`
- */
-export const watchStakingRewardsDistributorAdminChangedEvent =
+export const watchAxUsdAdminChangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'AdminChanged',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BaseRewardsClaimed"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BeaconUpgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorBaseRewardsClaimedEvent =
+export const watchAxUsdBeaconUpgradedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'BaseRewardsClaimed',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BaseRewardsDeposited"`
- */
-export const watchStakingRewardsDistributorBaseRewardsDepositedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'BaseRewardsDeposited',
-  })
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"BeaconUpgraded"`
- */
-export const watchStakingRewardsDistributorBeaconUpgradedEvent =
-  /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'BeaconUpgraded',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Initialized"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorInitializedEvent =
+export const watchAxUsdUpgradedEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Upgraded',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"APRUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdAprUpdatedEvent = /*#__PURE__*/ createWatchContractEvent(
+  { abi: axUsdAbi, address: axUsdAddress, eventName: 'APRUpdated' },
+)
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdAccountWithdrawalFeeSetEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'AccountWithdrawalFeeSet',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Approval"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdApprovalEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Approval',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BufferRateUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdBufferRateUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BufferRateUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BurnAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdBurnAccessGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BurnAccessGranted',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"BurnAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdBurnAccessRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'BurnAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"CCIPAdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdCcipAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'CCIPAdminChanged',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdDeploymentDelayUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'DeploymentDelayUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdDepositEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Deposit',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"FeeRatesUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdFeeRatesUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'FeeRatesUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdHighWaterMarkUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'HighWaterMarkUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Initialized"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'Initialized',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"MintAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorOwnershipTransferredEvent =
+export const watchAxUsdMintAccessGrantedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'MintAccessGranted',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"MintAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdMintAccessRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'MintAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
     eventName: 'OwnershipTransferred',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Paused"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorPausedEvent =
+export const watchAxUsdPausedEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Paused',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdRateCheckpointUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Paused',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'RateCheckpointUpdated',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"ProtocolFeesDeposited"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorProtocolFeesDepositedEvent =
+export const watchAxUsdTotalAssetsUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'ProtocolFeesDeposited',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'TotalAssetsUpdated',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"ProtocolRewardsClaimed"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorProtocolRewardsClaimedEvent =
+export const watchAxUsdTransferEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Transfer',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Unpaused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdUnpausedEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Unpaused',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"VaultManagersUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdVaultManagersUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'ProtocolRewardsClaimed',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'VaultManagersUpdated',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Unpaused"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"VaultParamsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorUnpausedEvent =
+export const watchAxUsdVaultParamsUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Unpaused',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'VaultParamsUpdated',
   })
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link stakingRewardsDistributorAbi}__ and `eventName` set to `"Upgraded"`
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"Withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
  */
-export const watchStakingRewardsDistributorUpgradedEvent =
+export const watchAxUsdWithdrawEvent = /*#__PURE__*/ createWatchContractEvent({
+  abi: axUsdAbi,
+  address: axUsdAddress,
+  eventName: 'Withdraw',
+})
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdWithdrawalGasFeeUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
-    abi: stakingRewardsDistributorAbi,
-    eventName: 'Upgraded',
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalGasFeeUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalProcessed"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdWithdrawalProcessedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalProcessed',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link axUsdAbi}__ and `eventName` set to `"WithdrawalRequested"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xEF3fbcEEA9d0A1F343433b3d5F2FF2dc28946BdC)
+ */
+export const watchAxUsdWithdrawalRequestedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: axUsdAbi,
+    address: axUsdAddress,
+    eventName: 'WithdrawalRequested',
   })
