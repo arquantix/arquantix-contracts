@@ -1,4 +1,4 @@
-import { defineConfig } from "@wagmi/cli";
+import { defineConfig, type Config } from "@wagmi/cli";
 import { hardhat, react, actions } from "@wagmi/cli/plugins";
 import deployedContracts from "./data/deployments.json";
 import { readdirSync, readFileSync } from "fs";
@@ -44,9 +44,6 @@ for (const abiFile of abiFiles) {
     // Skip if not in whitelist
     if (!contractList.includes(contractName)) continue;
   } else {
-    // Exclude chain specific implementations that have same interfaces
-    if (contractName.endsWith("Sonic")) continue;
-    if (contractName.endsWith("Hedera")) continue;
     // Skip implementation contracts
     if (contractName.includes("_Implementation")) continue;
   }
@@ -76,10 +73,7 @@ for (const chainId in deployedContracts) {
 
   for (const [name, data] of Object.entries(contractsData)) {
     const chainNumber = Number(chainId);
-    const cleanName = name
-      .replace("_Proxy", "")
-      .replace("Sonic", "")
-      .replace("Hedera", "");
+    const cleanName = name.replace("_Proxy", "");
 
     // Find the corresponding contract in our list
     const foundContract = contractsRaw.find(
@@ -126,10 +120,9 @@ export default defineConfig({
     hardhat({
       project: "../ledgity-v2-contracts/",
       deployments,
-      include: ["src/protocol-v2/"],
-      exclude: ["src/protocol-v1/abstracts/**", "src/protocol-v1/libs/**"],
+      include: ["src/"],
     }),
     react(),
     actions(),
   ],
-});
+}) as Config;
