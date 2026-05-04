@@ -112,7 +112,7 @@
     "name": "globalOwner",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "contract GlobalOwner",
         "name": "",
         "type": "address"
       }
@@ -183,7 +183,7 @@
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -196,7 +196,7 @@
     ],
     "name": "transferOwnership",
     "outputs": [],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
