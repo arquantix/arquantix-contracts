@@ -3,17 +3,17 @@ pragma solidity 0.8.18;
 
 // Contracts
 import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import { AdministeredUpgradable } from "src/protocol-v2/modules/AdministeredUpgradable.sol";
+import { AdministeredUpgradable } from "src/core/modules/AdministeredUpgradable.sol";
 // Libraries
-import { BalanceLogicLibrary } from "src/protocol-v2/libraries/BalanceLogicLibrary.sol";
-import { SafeCastLibrary } from "src/protocol-v2/libraries/SafeCastLibrary.sol";
+import { BalanceLogicLibrary } from "src/libraries/BalanceLogicLibrary.sol";
+import { SafeCastLibrary } from "src/libraries/SafeCastLibrary.sol";
 // Extensions
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
-import { ReentrancyGuard } from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 // Interfaces
-import { IStakingPositions } from "src/protocol-v2/interfaces/IStakingPositions.sol";
-import { IStakingRewardsDistributor } from "src/protocol-v2/interfaces/IStakingRewardsDistributor.sol";
+import { IStakingPositions } from "src/interfaces/IStakingPositions.sol";
+import { IStakingRewardsDistributor } from "src/interfaces/IStakingRewardsDistributor.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IERC721Receiver } from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import { IERC721Metadata } from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";

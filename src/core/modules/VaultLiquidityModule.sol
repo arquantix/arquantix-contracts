@@ -8,7 +8,7 @@ import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/O
 // Library
 import { Math } from "@openzeppelin/contracts/utils/math/Math.sol";
 // Interface
-import { IVaultLiquidityModule } from "src/protocol-v2/interfaces/IVaultLiquidityModule.sol";
+import { IVaultLiquidityModule } from "src/interfaces/IVaultLiquidityModule.sol";
 
 /**
  * @title VaultLiquidityModule

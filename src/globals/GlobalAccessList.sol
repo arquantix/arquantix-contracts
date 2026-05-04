@@ -6,8 +6,8 @@ import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/I
 import { UUPSUpgradeable } from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 // Interfaces
-import { IGlobalOwner } from "src/protocol-v2/interfaces/IGlobalOwner.sol";
-import { IGlobalAccessList } from "src/protocol-v2/interfaces/IGlobalAccessList.sol";
+import { IGlobalOwner } from "src/interfaces/IGlobalOwner.sol";
+import { IGlobalAccessList } from "src/interfaces/IGlobalAccessList.sol";
 
 /**
  * @title GlobalAccessList

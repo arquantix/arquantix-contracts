@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
-import { IStakingPositions } from "src/protocol-v2/interfaces/IStakingPositions.sol";
+import { IStakingPositions } from "src/interfaces/IStakingPositions.sol";
 
 interface IStakingRewardsDistributor {
   /*//////////////////////////////////////////////////////////////

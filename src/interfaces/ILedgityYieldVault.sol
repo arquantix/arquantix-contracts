@@ -3,9 +3,9 @@ pragma solidity 0.8.18;
 
 // Interfaces
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IAaveLendingPoolV3 } from "src/protocol-v2/interfaces/IAaveLendingPoolV3.sol";
-import { ILedgityDataProvider } from "src/protocol-v2/interfaces/ILedgityDataProvider.sol";
-import { IVaultLiquidityModule } from "src/protocol-v2/interfaces/IVaultLiquidityModule.sol";
+import { IAaveLendingPoolV3 } from "src/interfaces/IAaveLendingPoolV3.sol";
+import { ILedgityDataProvider } from "src/interfaces/ILedgityDataProvider.sol";
+import { IVaultLiquidityModule } from "src/interfaces/IVaultLiquidityModule.sol";
 
 interface ILedgityYieldVault is ILedgityDataProvider {
   struct VaultParams {

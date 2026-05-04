@@ -8,9 +8,9 @@ import { PausableUpgradeable } from "@openzeppelin/contracts-upgradeable/securit
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 // Interfaces
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IGlobalOwner } from "src/protocol-v2/interfaces/IGlobalOwner.sol";
-import { IGlobalPause } from "src/protocol-v2/interfaces/IGlobalPause.sol";
-import { IGlobalAccessList } from "src/protocol-v2/interfaces/IGlobalAccessList.sol";
+import { IGlobalOwner } from "src/interfaces/IGlobalOwner.sol";
+import { IGlobalPause } from "src/interfaces/IGlobalPause.sol";
+import { IGlobalAccessList } from "src/interfaces/IGlobalAccessList.sol";
 
 /**
  * @title AdministeredUpgradable

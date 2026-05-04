@@ -2,9 +2,9 @@
 pragma solidity 0.8.18;
 
 // Contracts
-import { CCIPTokenModule } from "src/protocol-v2/modules/CCIPTokenModule.sol";
-import { VaultLiquidityModule } from "src/protocol-v2/modules/VaultLiquidityModule.sol";
-import { AdministeredUpgradable } from "src/protocol-v2/modules/AdministeredUpgradable.sol";
+import { CCIPTokenModule } from "src/core/modules/CCIPTokenModule.sol";
+import { VaultLiquidityModule } from "src/core/modules/VaultLiquidityModule.sol";
+import { AdministeredUpgradable } from "src/core/modules/AdministeredUpgradable.sol";
 //
 import { Initializable } from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import { ERC20Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
@@ -12,14 +12,14 @@ import { ERC4626Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ER
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 // Libraries
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import { LedgityDataProvider } from "src/protocol-v2/libraries/LedgityDataProvider.sol";
+import { LedgityDataProvider } from "src/libraries/LedgityDataProvider.sol";
 // Interfaces
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IERC20Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import { IERC4626 } from "@openzeppelin/contracts/interfaces/IERC4626.sol";
-import { IAaveLendingPoolV3 } from "src/protocol-v2/interfaces/IAaveLendingPoolV3.sol";
-import { ILedgityYieldVault } from "src/protocol-v2/interfaces/ILedgityYieldVault.sol";
-import { ILedgityDataProvider } from "src/protocol-v2/interfaces/ILedgityDataProvider.sol";
+import { IAaveLendingPoolV3 } from "src/interfaces/IAaveLendingPoolV3.sol";
+import { ILedgityYieldVault } from "src/interfaces/ILedgityYieldVault.sol";
+import { ILedgityDataProvider } from "src/interfaces/ILedgityDataProvider.sol";
 
 /**
  * @title LedgityYieldVault

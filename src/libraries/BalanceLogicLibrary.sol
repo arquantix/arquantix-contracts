@@ -2,9 +2,9 @@
 pragma solidity 0.8.18;
 
 // Libraries
-import { SafeCastLibrary } from "src/protocol-v2/libraries/SafeCastLibrary.sol";
+import { SafeCastLibrary } from "src/libraries/SafeCastLibrary.sol";
 // Interfaces
-import { IStakingPositions } from "src/protocol-v2/interfaces/IStakingPositions.sol";
+import { IStakingPositions } from "src/interfaces/IStakingPositions.sol";
 
 library BalanceLogicLibrary {
   using SafeCastLibrary for uint256;

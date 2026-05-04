@@ -13,6 +13,7 @@ cache
 temp
 markups
 foundry/out
+.claude
 
 # files
 *.env
