@@ -146,7 +146,7 @@ export function getGeneralChainConfig(chainId: number) {
 export async function getParametersForVault(
   chainId: number,
   name: string,
-  symbol: "lyUSD" | "lyEUR",
+  symbol: "axUSD",
   globalOwner: Address,
   globalPause: Address,
   globalAccessList: Address,
@@ -163,10 +163,9 @@ export async function getParametersForVault(
   )
     throw Error("Invalid liquidityManager or feeRecipient");
 
-  const referenceBaseAssetsPerShare =
-    await getReferenceBaseAssetsPerShare(symbol);
-  const initialAssetsPerShare =
-    vaultConfig.initialAssetsPerShare || referenceBaseAssetsPerShare;
+  const initialAssetsPerShare = vaultConfig.initialAssetsPerShare
+    ? vaultConfig.initialAssetsPerShare
+    : await getReferenceBaseAssetsPerShare(symbol as "lyUSD" | "lyEUR");
   console.log("=> Initial Share Price: ", initialAssetsPerShare);
 
   return [
@@ -231,29 +230,28 @@ const configsContracts: {
 } = {
   // Base
   [8453]: {
-    owner: "0x972c17D0adA071db4a0395505dD3Ad0a80809053",
-    feeRecipient: "0x22F74606AC919A4CA912Ad787A9bf1093902f692",
+    owner: "0xA3C37ae68325c76a1dca3120fc94c2bA82B7972C", // Owner multisig (Safe 2/3)
+    feeRecipient: "0x2296b81e9BBC085E117952FB9b15886b8BE3E1c9", // Fee Recipient multisig (Safe 2/3)
     stakeForFeeReduction: 0n,
     stakeForInstantWithdrawal: 0n,
-    stakeToken: getTokenAddress(8453, "LDY"),
+    stakeToken: zeroAddress,
     maxLockDurationSeconds: FOUR_YEARS_IN_SECONDS,
-    initialMerkleRoot: EMPTY_MERKLE_ROOT,
     vaults: {
-      lyUSD: {
+      axUSD: {
         asset: getTokenAddress(8453, "USDC"),
-        lToken: getTokenAddress(8453, "LUSDC", true),
-        liquidityBufferRate: toRay(10),
-        liquidityManager: "0xE7616e98d2506E571E8f6E38e7Bfd0b55642ACac",
-        aaveLendingPool: dependencies[8453].AAVE_LENDING_POOL,
+        lToken: zeroAddress,
+        liquidityBufferRate: 0n, // 100% deployed, no idle reserve
+        liquidityManager: "0x13BBea168E87710D28C3EF4bb97fE85aF3dBe050", // Fund Wallet multisig (Safe 2/3)
+        aaveLendingPool: zeroAddress, // no Aave strategy
         //
-        initialAssetsPerShare: 0n, // defaults to fetching Base vault price
-        highWaterMark: 0n, // default 1:1 ratio
+        initialAssetsPerShare: parseUnits("1", 6), // 1 USDC per share (1:1 at launch)
+        highWaterMark: 0n, // defaults to 1:1 ratio
         deploymentDelay: 1, // days
-        yieldAPR: toRay(9), // 9% APR in RAY
-        managementFeeRate: 0n, // 0.2% in RAY
-        performanceFeeRate: 0n, // 2% in RAY
-        withdrawalFeeRate: toRay(0.3), // 0.05% in RAY
-        withdrawalGasFee: 0n,
+        yieldAPR: toRay(12), // 12% APR in RAY
+        managementFeeRate: 0n,
+        performanceFeeRate: toRay(10), // 10% in RAY
+        withdrawalFeeRate: 0n,
+        withdrawalGasFee: parseUnits("0.001", 18), // 0.001 ETH async withdrawal gas fee
       },
     },
   },
