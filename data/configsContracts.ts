@@ -1,7 +1,6 @@
 import fs from "fs";
 import {
   Address,
-  parseEther,
   parseUnits,
   zeroAddress,
   isAddress,
@@ -210,7 +209,6 @@ const configsContracts: {
     stakeForInstantWithdrawal: bigint;
     stakeToken: Address;
     maxLockDurationSeconds: bigint;
-    initialMerkleRoot: string;
     vaults: {
       [symbol: string]: {
         asset: Address | undefined;
@@ -231,34 +229,6 @@ const configsContracts: {
     };
   };
 } = {
-  // Ethereum
-  [1]: {
-    owner: "0x972c17D0adA071db4a0395505dD3Ad0a80809053",
-    feeRecipient: "0x22F74606AC919A4CA912Ad787A9bf1093902f692",
-    stakeForFeeReduction: 0n,
-    stakeForInstantWithdrawal: 0n,
-    stakeToken: getTokenAddress(1, "LDY"),
-    maxLockDurationSeconds: FOUR_YEARS_IN_SECONDS,
-    initialMerkleRoot: EMPTY_MERKLE_ROOT,
-    vaults: {
-      lyUSD: {
-        asset: getTokenAddress(1, "USDC"),
-        lToken: getTokenAddress(1, "LUSDC", true),
-        liquidityBufferRate: toRay(10),
-        liquidityManager: "0xE7616e98d2506E571E8f6E38e7Bfd0b55642ACac",
-        aaveLendingPool: dependencies[1].AAVE_LENDING_POOL,
-        //
-        initialAssetsPerShare: 0n, // defaults to fetching Base vault price
-        highWaterMark: 0n, // default 1:1 ratio
-        deploymentDelay: 1, // days
-        yieldAPR: toRay(9), // 9% APR in RAY
-        managementFeeRate: 0n, // 0.2% in RAY
-        performanceFeeRate: 0n, // 2% in RAY
-        withdrawalFeeRate: toRay(0.3), // 0.05% in RAY
-        withdrawalGasFee: parseEther("0.001"),
-      },
-    },
-  },
   // Base
   [8453]: {
     owner: "0x972c17D0adA071db4a0395505dD3Ad0a80809053",
