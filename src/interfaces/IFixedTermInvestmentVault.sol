@@ -8,4 +8,26 @@ import { ILedgityDataProvider } from "src/interfaces/ILedgityDataProvider.sol";
 import { IVaultLiquidityModule } from "src/interfaces/IVaultLiquidityModule.sol";
 import { ILedgityYieldVault } from "src/interfaces/ILedgityYieldVault.sol";
 
-interface IFixedTermInvestmentVault is ILedgityYieldVault {}
+interface IFixedTermInvestmentVault is ILedgityYieldVault {
+  function maxDepositCapacity() external view returns (uint256);
+
+  function operationEndDate() external view returns (uint256);
+
+  function withdrawalRequestShares(
+    uint256 requestId
+  ) external view returns (uint256);
+
+  function updateMaxDepositCapacity(
+    uint256 maxDepositCapacity
+  ) external;
+
+  function updateOperationEndDate(uint256 operationEndDate) external;
+
+  function withdrawalRequestsEnabled() external view returns (bool);
+
+  function updateWithdrawalRequestsEnabled(bool enabled) external;
+
+  function cancelPendingWithdrawalRequests(
+    uint256[] calldata requestIds
+  ) external;
+}

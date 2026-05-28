@@ -19,11 +19,20 @@ import { IERC20Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC
 import { IERC4626 } from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 import { IAaveLendingPoolV3 } from "src/interfaces/IAaveLendingPoolV3.sol";
 import { IFixedTermInvestmentVault } from "src/interfaces/IFixedTermInvestmentVault.sol";
+import { ILedgityYieldVault } from "src/interfaces/ILedgityYieldVault.sol";
 import { ILedgityDataProvider } from "src/interfaces/ILedgityDataProvider.sol";
 
 /**
  * @title FixedTermInvestmentVault
- * @notice Ledgity Yield ERC-4626 Vault for RWA assets with on-chain liquidity management and yield generation
+ * @notice ERC-4626 vault for fixed-term investment operations with capped deposits and controlled exits.
+ * @dev The vault is designed for one-shot operations where deposits are accepted up to
+ *      `maxDepositCapacity`, direct withdrawals are locked until `operationEndDate`, and
+ *      early exits can be coordinated through withdrawal requests. Setting
+ *      `maxDepositCapacity` to zero disables the deposit cap. Setting `operationEndDate` to
+ *      zero disables the direct withdrawal lock. Withdrawal requests are independently
+ *      controlled by the owner through `updateWithdrawalRequestsEnabled`; disabling requests
+ *      cancels pending requests and remints the burned shares so users keep exposure at the
+ *      latest price per share.
  *
  * @author vBlackwhale (https://github.com/vblackwhale)
  */
@@ -48,6 +57,10 @@ contract FixedTermInvestmentVault is
   error InsufficientLiquidity();
   error InsufficientStakeForInstantWithdrawal();
   error TransferFailed();
+  error DepositCapacityExceeded();
+  error OperationNotEnded();
+  error WithdrawalRequestsDisabled();
+  error WithdrawalRequestSharesUnavailable();
 
   // ======== STORAGE ======== //
 
@@ -78,6 +91,14 @@ contract FixedTermInvestmentVault is
 
   // Array storing all withdrawal requests in chronological order
   ILedgityDataProvider.WithdrawalRequest[] public withdrawalRequests;
+  // Maximum total assets that can be deposited. A zero value disables the cap.
+  uint256 public maxDepositCapacity;
+  // Timestamp when direct withdrawals and redemptions unlock. A zero value disables the lock.
+  uint256 public operationEndDate;
+  // Net shares burned for each withdrawal request, used to restore exposure if cancelled.
+  mapping(uint256 => uint256) public withdrawalRequestShares;
+  // Inverted flag keeps withdrawal requests enabled by default for upgrade compatibility.
+  bool private _withdrawalRequestsDisabled;
 
   // ======== EVENTS ======== //
 
@@ -484,6 +505,10 @@ contract FixedTermInvestmentVault is
   {
     /// @dev owner and receiver (from/to) restricted status is checked in _beforeTokenTransfer
 
+    if (operationEndDate != 0 && block.timestamp < operationEndDate) {
+      revert OperationNotEnded();
+    }
+
     if (
       stakeForInstantWithdrawal != 0 &&
       address(stakeToken) != address(0) &&
@@ -522,6 +547,10 @@ contract FixedTermInvestmentVault is
     /// @dev owner and receiver (from/to) restricted status is checked in _beforeTokenTransfer
 
     if (assets_ == 0) revert ZeroAmount();
+    if (
+      maxDepositCapacity != 0 &&
+      maxDepositCapacity < totalAssets() + assets_
+    ) revert DepositCapacityExceeded();
 
     // Take fees before processing
     harvestFees();
@@ -619,7 +648,7 @@ contract FixedTermInvestmentVault is
     address receiver
   )
     public
-    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
+    override(ERC4626Upgradeable, ILedgityYieldVault)
     returns (uint256)
   {
     return _depositToVault(msg.sender, receiver, assets, 0);
@@ -636,7 +665,7 @@ contract FixedTermInvestmentVault is
     address receiver
   )
     public
-    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
+    override(ERC4626Upgradeable, ILedgityYieldVault)
     returns (uint256)
   {
     return
@@ -661,7 +690,7 @@ contract FixedTermInvestmentVault is
     address owner_
   )
     public
-    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
+    override(ERC4626Upgradeable, ILedgityYieldVault)
     returns (uint256)
   {
     return
@@ -687,7 +716,7 @@ contract FixedTermInvestmentVault is
     address owner_
   )
     public
-    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
+    override(ERC4626Upgradeable, ILedgityYieldVault)
     returns (uint256)
   {
     return
@@ -697,13 +726,25 @@ contract FixedTermInvestmentVault is
   /**
    * @notice Request a withdrawal that will be processed asynchronously
    * @param shares Amount of vault shares to withdraw
-   * @dev Requires gas fee payment and burns shares immediately
+   * @dev Requires gas fee payment and burns shares immediately. Requests remain available
+   *      after the operation end date if the owner leaves them enabled.
    */
   function requestWithdrawal(
     uint256 shares
   ) public payable whenNotPaused notRestricted(msg.sender) {
+    if (_withdrawalRequestsDisabled) revert WithdrawalRequestsDisabled();
     if (msg.value < withdrawalGasFee)
       revert MissingWithdrawalRequestFee();
+
+    uint256 withdrawalFee;
+    if (
+      stakeForFeeReduction != 0 &&
+      address(stakeToken) != address(0) &&
+      stakeToken.balanceOf(msg.sender) < stakeForFeeReduction
+    ) {
+      withdrawalFee = _computeWithdrawalFee(shares, msg.sender);
+    }
+
     // Transfer gas fee to fee recipient
     /// @dev Use call since the fee recipient is a multisig that requires more that enforced 2300 .transfer() gas
     (bool success, ) = feeRecipient.call{
@@ -731,6 +772,10 @@ contract FixedTermInvestmentVault is
       msg.sender,
       shares
     );
+
+    withdrawalRequestShares[withdrawalRequests.length - 1] =
+      shares -
+      withdrawalFee;
   }
 
   /**
@@ -743,6 +788,77 @@ contract FixedTermInvestmentVault is
   }
 
   // ======== ADMIN ======== //
+
+  /**
+   * @notice Update the maximum deposit capacity.
+   * @param maxDepositCapacity_ New capacity in underlying asset units. Set to zero to disable the cap.
+   * @dev Only the vault owner can update the capacity. Lowering it below current assets
+   *      blocks additional deposits without forcing existing users out.
+   */
+  function updateMaxDepositCapacity(
+    uint256 maxDepositCapacity_
+  ) external onlyOwner {
+    maxDepositCapacity = maxDepositCapacity_;
+  }
+
+  /**
+   * @notice Update the timestamp when direct withdrawals and redemptions unlock.
+   * @param operationEndDate_ New unlock timestamp. Set to zero to disable the lock.
+   * @dev The end date controls only direct ERC-4626 withdrawals and redemptions. Withdrawal
+   *      requests are controlled independently by `updateWithdrawalRequestsEnabled`.
+   */
+  function updateOperationEndDate(
+    uint256 operationEndDate_
+  ) external onlyOwner {
+    operationEndDate = operationEndDate_;
+  }
+
+  /**
+   * @notice Return whether users can create withdrawal requests.
+   * @return enabled True when new withdrawal requests are accepted.
+   */
+  function withdrawalRequestsEnabled()
+    public
+    view
+    returns (bool enabled)
+  {
+    return !_withdrawalRequestsDisabled;
+  }
+
+  /**
+   * @notice Enable or disable new withdrawal requests.
+   * @param enabled True to accept new requests, false to block them.
+   * @dev Disabling also cancels all pending requests. If the request array is too large to
+   *      process in one transaction, use `cancelPendingWithdrawalRequests` with selected ids.
+   */
+  function updateWithdrawalRequestsEnabled(
+    bool enabled
+  ) external onlyOwner {
+    _withdrawalRequestsDisabled = !enabled;
+
+    if (!enabled) {
+      for (uint256 i; i < withdrawalRequests.length; i++) {
+        if (!withdrawalRequests[i].processed) {
+          _cancelWithdrawalRequest(i);
+        }
+      }
+    }
+  }
+
+  /**
+   * @notice Cancel selected pending withdrawal requests.
+   * @param requestIds Withdrawal request ids to cancel.
+   * @dev Each cancellation marks the request as processed so it cannot later be paid by the
+   *      liquidity manager, restores vault accounting at the latest PPS, and remints the
+   *      burned net shares to the request owner.
+   */
+  function cancelPendingWithdrawalRequests(
+    uint256[] calldata requestIds
+  ) external onlyOwner {
+    for (uint256 i; i < requestIds.length; i++) {
+      _cancelWithdrawalRequest(requestIds[i]);
+    }
+  }
 
   /**
    * @notice Burns shares from a blacklisted user and mints them to another address
@@ -910,5 +1026,27 @@ contract FixedTermInvestmentVault is
       newStakeForInstantWithdrawal,
       newAaveLendingPool
     );
+  }
+
+  /**
+   * @notice Cancel a pending request and restore the user's vault exposure.
+   * @param requestId Withdrawal request id to cancel.
+   * @dev The request is marked processed before minting shares back. The vault restores the
+   *      current asset value of the burned shares, so cancellation preserves the user's
+   *      exposure at the latest price per share while preventing later request processing.
+   */
+  function _cancelWithdrawalRequest(uint256 requestId) private {
+    ILedgityDataProvider.WithdrawalRequest
+      storage request = withdrawalRequests[requestId];
+
+    if (request.processed) revert RequestAlreadyProcessed();
+
+    uint256 shares = withdrawalRequestShares[requestId];
+    if (shares == 0) revert WithdrawalRequestSharesUnavailable();
+
+    request.processed = true;
+
+    _addAssets(convertToAssets(shares));
+    _mint(request.user, shares);
   }
 }

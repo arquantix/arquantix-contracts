@@ -171,12 +171,22 @@ const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   solidity: {
     overrides: {
-      "src/protocol-v2/LedgityYieldVault.sol": {
+      "src/core/LedgityYieldVault.sol": {
         version: "0.8.18",
         settings: {
           optimizer: {
             enabled: true,
-            runs: 1,
+            runs: 0,
+          },
+        },
+      },
+      "src/core/FixedTermInvestmentVault.sol": {
+        version: "0.8.18",
+        settings: {
+          viaIR: true,
+          optimizer: {
+            enabled: true,
+            runs: 0,
           },
         },
       },
