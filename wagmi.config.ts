@@ -9,6 +9,7 @@ const contractList = [
   "LedgityYieldVault",
   "GenericERC20",
   "axUSD",
+  "FixedTermInvestmentVault",
 ];
 
 type ContractMap = {
