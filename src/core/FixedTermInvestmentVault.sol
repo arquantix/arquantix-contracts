@@ -100,6 +100,9 @@ contract FixedTermInvestmentVault is
   // Inverted flag keeps withdrawal requests enabled by default for upgrade compatibility.
   bool private _withdrawalRequestsDisabled;
 
+  // The vault type identifier
+  uint8 public vaultType = 2;
+
   // ======== EVENTS ======== //
 
   /**
@@ -732,7 +735,8 @@ contract FixedTermInvestmentVault is
   function requestWithdrawal(
     uint256 shares
   ) public payable whenNotPaused notRestricted(msg.sender) {
-    if (_withdrawalRequestsDisabled) revert WithdrawalRequestsDisabled();
+    if (_withdrawalRequestsDisabled)
+      revert WithdrawalRequestsDisabled();
     if (msg.value < withdrawalGasFee)
       revert MissingWithdrawalRequestFee();
 
