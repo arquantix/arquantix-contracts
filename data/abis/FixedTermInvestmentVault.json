@@ -31,11 +31,6 @@
   },
   {
     "inputs": [],
-    "name": "NoLTokenSet",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "OnlyLiquidityManager",
     "type": "error"
   },
@@ -576,12 +571,6 @@
   {
     "anonymous": false,
     "inputs": [
-      {
-        "indexed": true,
-        "internalType": "contract IERC20",
-        "name": "newLToken",
-        "type": "address"
-      },
       {
         "indexed": true,
         "internalType": "contract IERC20",
@@ -1424,11 +1413,6 @@
           },
           {
             "internalType": "contract IERC20",
-            "name": "lToken",
-            "type": "address"
-          },
-          {
-            "internalType": "contract IERC20",
             "name": "stakeToken",
             "type": "address"
           },
@@ -1478,7 +1462,7 @@
             "type": "address"
           }
         ],
-        "internalType": "struct ILedgityYieldVault.VaultParams",
+        "internalType": "struct IFixedTermInvestmentVault.VaultParams",
         "name": "params",
         "type": "tuple"
       },
@@ -1581,19 +1565,6 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lToken",
-    "outputs": [
-      {
-        "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1751,25 +1722,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "migrateLToken",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "shares",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -2454,11 +2406,6 @@
     "inputs": [
       {
         "internalType": "contract IERC20",
-        "name": "newLToken",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IERC20",
         "name": "newStakeToken",
         "type": "address"
       },
@@ -2538,19 +2485,6 @@
     "name": "upgradeToAndCall",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vaultType",
-    "outputs": [
-      {
-        "internalType": "uint8",
-        "name": "",
-        "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {

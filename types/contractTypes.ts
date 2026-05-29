@@ -664,6 +664,1539 @@ export const globalPauseConfig = {
 } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LedgityYieldVault
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const ledgityYieldVaultAbi = [
+  { type: 'error', inputs: [], name: 'InsufficientLiquidity' },
+  { type: 'error', inputs: [], name: 'InsufficientStakeForInstantWithdrawal' },
+  { type: 'error', inputs: [], name: 'MissingWithdrawalRequestFee' },
+  { type: 'error', inputs: [], name: 'MustImplementMintAndBurnFunctions' },
+  { type: 'error', inputs: [], name: 'NoLTokenSet' },
+  { type: 'error', inputs: [], name: 'OnlyLiquidityManager' },
+  { type: 'error', inputs: [], name: 'RateAboveHundredPercent' },
+  { type: 'error', inputs: [], name: 'RequestAlreadyProcessed' },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'SenderNotBurner',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'SenderNotCCIPAdmin',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'SenderNotMinter',
+  },
+  { type: 'error', inputs: [], name: 'TransferFailed' },
+  { type: 'error', inputs: [], name: 'UserIsRestricted' },
+  { type: 'error', inputs: [], name: 'ZeroAddress' },
+  { type: 'error', inputs: [], name: 'ZeroAddressCCIPAdmin' },
+  { type: 'error', inputs: [], name: 'ZeroAmount' },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'newAPR',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'oldAPR',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'APRUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'withdrawalFee',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'AccountWithdrawalFeeSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'newAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'AdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'beacon',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BeaconUpgraded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'bufferRate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'BufferRateUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'burner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BurnAccessGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'burner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'BurnAccessRevoked',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'newAdmin',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'CCIPAdminChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'oldDelay',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+      {
+        name: 'newDelay',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+    ],
+    name: 'DeploymentDelayUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'assets',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'shares',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Deposit',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'managementFeeRate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'performanceRate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'withdrawalRate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'FeeRatesUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'oldHighWaterMark',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newHighWaterMark',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'HighWaterMarkUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'minter',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'MintAccessGranted',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'minter',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'MintAccessRevoked',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'Paused',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'newRate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newAPR',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'RateCheckpointUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'oldTotalAssets',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newTotalAssets',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'TotalAssetsUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+    ],
+    name: 'Unpaused',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'implementation',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'Upgraded',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'liquidityManager',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'feeRecipient',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'VaultManagersUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'newLToken',
+        internalType: 'contract IERC20',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newStakeToken',
+        internalType: 'contract IERC20',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newStakeForFeeReduction',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newStakeForInstantWithdrawal',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newAaveLendingPool',
+        internalType: 'contract IAaveLendingPoolV3',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'VaultParamsUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'receiver',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'assets',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'shares',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Withdraw',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'oldGasFee',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newGasFee',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'WithdrawalGasFeeUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'requestId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'WithdrawalProcessed',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'requestId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      { name: 'user', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'shares',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'WithdrawalRequested',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'RAY',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'aToken',
+    outputs: [{ name: '', internalType: 'contract IERC20', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'aaveLendingPool',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract IAaveLendingPoolV3',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'accountWithdrawalFee',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'asset',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'burn',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'burnFrom', internalType: 'address', type: 'address' },
+      { name: 'remintTo', internalType: 'address', type: 'address' },
+    ],
+    name: 'burnAndRemintBlacklistedShares',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    name: 'convertToAssets',
+    outputs: [{ name: 'assets', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'assets', internalType: 'uint256', type: 'uint256' }],
+    name: 'convertToShares',
+    outputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'pure',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimalsOffset',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'subtractedValue', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'decreaseAllowance',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'deploymentDelay',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'assets', internalType: 'uint256', type: 'uint256' },
+      { name: 'receiver', internalType: 'address', type: 'address' },
+    ],
+    name: 'deposit',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'assets', internalType: 'uint256', type: 'uint256' }],
+    name: 'depositToBuffer',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'feeRecipient',
+    outputs: [{ name: '', internalType: 'address payable', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getBufferAssets',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getCCIPAdmin',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getFeeData',
+    outputs: [
+      { name: 'feeShares', internalType: 'uint256', type: 'uint256' },
+      { name: 'pricePerShare', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'user', internalType: 'address', type: 'address' },
+      { name: 'onlyPending', internalType: 'bool', type: 'bool' },
+      { name: 'maxRange', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'getUserWithdrawalRequests',
+    outputs: [
+      {
+        name: 'requests',
+        internalType: 'struct ILedgityDataProvider.WithdrawalRequestRead[]',
+        type: 'tuple[]',
+        components: [
+          { name: 'requestId', internalType: 'uint256', type: 'uint256' },
+          { name: 'user', internalType: 'address', type: 'address' },
+          { name: 'amount', internalType: 'uint256', type: 'uint256' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
+          { name: 'processed', internalType: 'bool', type: 'bool' },
+          { name: 'hasFeeReduction', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getWithdrawalRequestCount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'onlyPending', internalType: 'bool', type: 'bool' },
+      { name: 'maxRange', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'getWithdrawalRequests',
+    outputs: [
+      {
+        name: 'requests',
+        internalType: 'struct ILedgityDataProvider.WithdrawalRequestRead[]',
+        type: 'tuple[]',
+        components: [
+          { name: 'requestId', internalType: 'uint256', type: 'uint256' },
+          { name: 'user', internalType: 'address', type: 'address' },
+          { name: 'amount', internalType: 'uint256', type: 'uint256' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
+          { name: 'processed', internalType: 'bool', type: 'bool' },
+          { name: 'hasFeeReduction', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'requestIds', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
+    name: 'getWithdrawalRequestsByIds',
+    outputs: [
+      {
+        name: 'requests',
+        internalType: 'struct ILedgityDataProvider.WithdrawalRequestRead[]',
+        type: 'tuple[]',
+        components: [
+          { name: 'requestId', internalType: 'uint256', type: 'uint256' },
+          { name: 'user', internalType: 'address', type: 'address' },
+          { name: 'amount', internalType: 'uint256', type: 'uint256' },
+          { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
+          { name: 'processed', internalType: 'bool', type: 'bool' },
+          { name: 'hasFeeReduction', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'globalOwner',
+    outputs: [
+      { name: '', internalType: 'contract IGlobalOwner', type: 'address' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'globalPause',
+    outputs: [
+      { name: '', internalType: 'contract IGlobalPause', type: 'address' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'globalRestrict',
+    outputs: [
+      { name: '', internalType: 'contract IGlobalAccessList', type: 'address' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'burner', internalType: 'address', type: 'address' }],
+    name: 'grantBurnRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'minter', internalType: 'address', type: 'address' }],
+    name: 'grantMintRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'harvestFees',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'hasBufferStrategy',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'highWaterMark',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'addedValue', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'increaseAllowance',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: 'params',
+        internalType: 'struct ILedgityYieldVault.VaultParams',
+        type: 'tuple',
+        components: [
+          { name: 'name', internalType: 'string', type: 'string' },
+          { name: 'symbol', internalType: 'string', type: 'string' },
+          { name: 'asset', internalType: 'contract IERC20', type: 'address' },
+          { name: 'lToken', internalType: 'contract IERC20', type: 'address' },
+          {
+            name: 'stakeToken',
+            internalType: 'contract IERC20',
+            type: 'address',
+          },
+          {
+            name: 'stakeForFeeReduction',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'stakeForInstantWithdrawal',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          { name: 'globalOwner', internalType: 'address', type: 'address' },
+          { name: 'globalPause', internalType: 'address', type: 'address' },
+          {
+            name: 'globalAccessList',
+            internalType: 'address',
+            type: 'address',
+          },
+          {
+            name: 'liquidityManager',
+            internalType: 'address',
+            type: 'address',
+          },
+          {
+            name: 'feeRecipient',
+            internalType: 'address payable',
+            type: 'address',
+          },
+          {
+            name: 'liquidityBufferRate',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'aaveLendingPool',
+            internalType: 'contract IAaveLendingPoolV3',
+            type: 'address',
+          },
+        ],
+      },
+      {
+        name: 'vaultLiquidityInitParams',
+        internalType: 'struct IVaultLiquidityModule.VaultLiquidityInitParams',
+        type: 'tuple',
+        components: [
+          { name: 'highWaterMark', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'initialAssetsPerShare',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          { name: 'yieldAPR', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'managementFeeRate',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'performanceFeeRate',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'withdrawalFeeRate',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'withdrawalGasFee',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          { name: 'deploymentDelay', internalType: 'uint8', type: 'uint8' },
+        ],
+      },
+    ],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'isBurner',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'isMinter',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'isPausedLocal',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'lToken',
+    outputs: [{ name: '', internalType: 'contract IERC20', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'lastCompoundTime',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'lastFeeTime',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'liquidityBufferRate',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'liquidityManager',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'managementFeeRate',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'maxDeposit',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'maxMint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'maxRedeem',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'maxWithdraw',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'migrateLToken',
+    outputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mint',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'shares', internalType: 'uint256', type: 'uint256' },
+      { name: 'receiver', internalType: 'address', type: 'address' },
+    ],
+    name: 'mint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'pauseLocal',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'paused',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'performanceFeeRate',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'assets', internalType: 'uint256', type: 'uint256' }],
+    name: 'previewDeposit',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    name: 'previewMint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    name: 'previewRedeem',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'assets', internalType: 'uint256', type: 'uint256' }],
+    name: 'previewWithdraw',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'requestIds', internalType: 'uint256[]', type: 'uint256[]' },
+      { name: 'addAssets', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'processRequests',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'proxiableUUID',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'tokenAddress', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'recoverERC20',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'shares_', internalType: 'uint256', type: 'uint256' },
+      { name: 'receiver_', internalType: 'address', type: 'address' },
+      { name: 'owner_', internalType: 'address', type: 'address' },
+    ],
+    name: 'redeem',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'shares', internalType: 'uint256', type: 'uint256' }],
+    name: 'requestWithdrawal',
+    outputs: [],
+    stateMutability: 'payable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'burner', internalType: 'address', type: 'address' }],
+    name: 'revokeBurnRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'minter', internalType: 'address', type: 'address' }],
+    name: 'revokeMintRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'withdrawalFee', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setAccountWithdrawalFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newAdmin', internalType: 'address', type: 'address' }],
+    name: 'setCCIPAdmin',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newTotalAssets', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setTotalAssets',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'skimBuffer',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'stakeForFeeReduction',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'stakeForInstantWithdrawal',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'stakeToken',
+    outputs: [{ name: '', internalType: 'contract IERC20', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalAssets',
+    outputs: [
+      { name: 'currentTotalAssets', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'unpauseLocal',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'newAPR', internalType: 'uint256', type: 'uint256' }],
+    name: 'updateAPR',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'bufferRate', internalType: 'uint256', type: 'uint256' }],
+    name: 'updateBufferRate',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newDeploymentDelay', internalType: 'uint8', type: 'uint8' },
+    ],
+    name: 'updateDeploymentDelay',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'managementRate_', internalType: 'uint256', type: 'uint256' },
+      { name: 'performanceRate_', internalType: 'uint256', type: 'uint256' },
+      { name: 'withdrawalRate_', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'updateFeeRates',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newHighWaterMark', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'updateHighWaterMark',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newLiquidityManager', internalType: 'address', type: 'address' },
+      {
+        name: 'newFeeRecipient',
+        internalType: 'address payable',
+        type: 'address',
+      },
+    ],
+    name: 'updateVaultManagers',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newLToken', internalType: 'contract IERC20', type: 'address' },
+      {
+        name: 'newStakeToken',
+        internalType: 'contract IERC20',
+        type: 'address',
+      },
+      {
+        name: 'newStakeForFeeReduction',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'newStakeForInstantWithdrawal',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      {
+        name: 'newAaveLendingPool',
+        internalType: 'contract IAaveLendingPoolV3',
+        type: 'address',
+      },
+    ],
+    name: 'updateVaultParams',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newWithdrawalGasFee', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'updateWithdrawalGasFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newImplementation', internalType: 'address', type: 'address' },
+    ],
+    name: 'upgradeTo',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'newImplementation', internalType: 'address', type: 'address' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'upgradeToAndCall',
+    outputs: [],
+    stateMutability: 'payable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'assets_', internalType: 'uint256', type: 'uint256' },
+      { name: 'receiver_', internalType: 'address', type: 'address' },
+      { name: 'owner_', internalType: 'address', type: 'address' },
+    ],
+    name: 'withdraw',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'withdrawalFeeRate',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'withdrawalGasFee',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'withdrawalRequests',
+    outputs: [
+      { name: 'user', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'timestamp', internalType: 'uint256', type: 'uint256' },
+      { name: 'processed', internalType: 'bool', type: 'bool' },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'yieldAPR',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+] as const
+
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const ledgityYieldVaultAddress = {
+  8453: '0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496',
+} as const
+
+/**
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const ledgityYieldVaultConfig = {
+  address: ledgityYieldVaultAddress,
+  abi: ledgityYieldVaultAbi,
+} as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // axUSD
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -3201,6 +4734,2040 @@ export const useWatchGlobalPauseUnpausedEvent =
     abi: globalPauseAbi,
     address: globalPauseAddress,
     eventName: 'Unpaused',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVault = /*#__PURE__*/ createUseReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"RAY"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultRay = /*#__PURE__*/ createUseReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'RAY',
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultAToken =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'aToken',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aaveLendingPool"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultAaveLendingPool =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'aaveLendingPool',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultAccountWithdrawalFee =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'accountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"allowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultAllowance =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'allowance',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"asset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultAsset =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'asset',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"balanceOf"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultBalanceOf =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'balanceOf',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultConvertToAssets =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'convertToAssets',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultConvertToShares =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'convertToShares',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimals"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultDecimals =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decimals',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimalsOffset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultDecimalsOffset =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decimalsOffset',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultDeploymentDelay =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'deploymentDelay',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"feeRecipient"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultFeeRecipient =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'feeRecipient',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getBufferAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetBufferAssets =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getBufferAssets',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetCcipAdmin =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getFeeData"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetFeeData =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getFeeData',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetUserWithdrawalRequests =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getUserWithdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetWithdrawalRequestCount =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequestCount',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetWithdrawalRequests =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGetWithdrawalRequestsByIds =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequestsByIds',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalOwner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGlobalOwner =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalOwner',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalPause"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGlobalPause =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalPause',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalRestrict"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultGlobalRestrict =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalRestrict',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultHasBufferStrategy =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'hasBufferStrategy',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"highWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultHighWaterMark =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'highWaterMark',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isBurner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultIsBurner =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'isBurner',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isMinter"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultIsMinter =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'isMinter',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isPausedLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultIsPausedLocal =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'isPausedLocal',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultLToken =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'lToken',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastCompoundTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultLastCompoundTime =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'lastCompoundTime',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastFeeTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultLastFeeTime =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'lastFeeTime',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultLiquidityBufferRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'liquidityBufferRate',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityManager"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultLiquidityManager =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'liquidityManager',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"managementFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultManagementFeeRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'managementFeeRate',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultMaxDeposit =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxDeposit',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultMaxMint =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxMint',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultMaxRedeem =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxRedeem',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultMaxWithdraw =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxWithdraw',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"name"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultName = /*#__PURE__*/ createUseReadContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'name',
+  },
+)
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"owner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultOwner =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'owner',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPaused =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'paused',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"performanceFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPerformanceFeeRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'performanceFeeRate',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPreviewDeposit =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewDeposit',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPreviewMint =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewMint',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPreviewRedeem =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewRedeem',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultPreviewWithdraw =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewWithdraw',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"proxiableUUID"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultProxiableUuid =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'proxiableUUID',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForFeeReduction"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultStakeForFeeReduction =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeForFeeReduction',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultStakeForInstantWithdrawal =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeForInstantWithdrawal',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultStakeToken =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeToken',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"symbol"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultSymbol =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'symbol',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultTotalAssets =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'totalAssets',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalSupply"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultTotalSupply =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'totalSupply',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultWithdrawalFeeRate =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalFeeRate',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultWithdrawalGasFee =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultWithdrawalRequests =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"yieldAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useReadLedgityYieldVaultYieldApr =
+  /*#__PURE__*/ createUseReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'yieldAPR',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVault = /*#__PURE__*/ createUseWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultApprove =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'approve',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultBurn =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burn',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultBurnAndRemintBlacklistedShares =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultDecreaseAllowance =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decreaseAllowance',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultDeposit =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'deposit',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultDepositToBuffer =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'depositToBuffer',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultGrantBurnRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantBurnRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultGrantMintRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantMintRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultHarvestFees =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'harvestFees',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultIncreaseAllowance =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'increaseAllowance',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultInitialize =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'initialize',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultMigrateLToken =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'migrateLToken',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultMint =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'mint',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultPauseLocal =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'pauseLocal',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultProcessRequests =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRecoverErc20 =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'recoverERC20',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRedeem =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'redeem',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRenounceOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRequestWithdrawal =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'requestWithdrawal',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRevokeBurnRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeBurnRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultRevokeMintRole =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeMintRole',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultSetAccountWithdrawalFee =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setAccountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultSetCcipAdmin =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultSetTotalAssets =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setTotalAssets',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultSkimBuffer =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'skimBuffer',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultTransfer =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transfer',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultTransferFrom =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultTransferOwnership =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUnpauseLocal =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'unpauseLocal',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateApr =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateAPR',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateBufferRate =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateBufferRate',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateDeploymentDelay =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateDeploymentDelay',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateFeeRates =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateFeeRates',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateHighWaterMark =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateHighWaterMark',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateVaultManagers =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateVaultParams =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpgradeTo =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeTo',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultUpgradeToAndCall =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeToAndCall',
+  })
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWriteLedgityYieldVaultWithdraw =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdraw',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVault =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultApprove =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'approve',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultBurn =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burn',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultBurnAndRemintBlacklistedShares =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultDecreaseAllowance =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decreaseAllowance',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultDeposit =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'deposit',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultDepositToBuffer =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'depositToBuffer',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultGrantBurnRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantBurnRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultGrantMintRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantMintRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultHarvestFees =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'harvestFees',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultIncreaseAllowance =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'increaseAllowance',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultInitialize =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'initialize',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultMigrateLToken =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'migrateLToken',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultMint =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'mint',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultPauseLocal =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'pauseLocal',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultProcessRequests =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRecoverErc20 =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'recoverERC20',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRedeem =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'redeem',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRenounceOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRequestWithdrawal =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'requestWithdrawal',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRevokeBurnRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeBurnRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultRevokeMintRole =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeMintRole',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultSetAccountWithdrawalFee =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setAccountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultSetCcipAdmin =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultSetTotalAssets =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setTotalAssets',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultSkimBuffer =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'skimBuffer',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultTransfer =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transfer',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultTransferFrom =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultTransferOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUnpauseLocal =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'unpauseLocal',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateApr =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateAPR',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateBufferRate =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateBufferRate',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateDeploymentDelay =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateDeploymentDelay',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateFeeRates =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateFeeRates',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateHighWaterMark =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateHighWaterMark',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateVaultManagers =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateVaultParams =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpgradeTo =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeTo',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultUpgradeToAndCall =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeToAndCall',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useSimulateLedgityYieldVaultWithdraw =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdraw',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"APRUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultAprUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'APRUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultAccountWithdrawalFeeSetEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'AccountWithdrawalFeeSet',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultAdminChangedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'AdminChanged',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Approval"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultApprovalEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Approval',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BeaconUpgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultBeaconUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BeaconUpgraded',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BufferRateUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultBufferRateUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BufferRateUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultBurnAccessGrantedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BurnAccessGranted',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultBurnAccessRevokedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BurnAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"CCIPAdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultCcipAdminChangedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'CCIPAdminChanged',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultDeploymentDelayUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'DeploymentDelayUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultDepositEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Deposit',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"FeeRatesUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultFeeRatesUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'FeeRatesUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultHighWaterMarkUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'HighWaterMarkUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Initialized"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultInitializedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Initialized',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultMintAccessGrantedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'MintAccessGranted',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultMintAccessRevokedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'MintAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'OwnershipTransferred',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultPausedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Paused',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultRateCheckpointUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'RateCheckpointUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultTotalAssetsUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'TotalAssetsUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultTransferEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Transfer',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Unpaused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultUnpausedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Unpaused',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultManagersUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultVaultManagersUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'VaultManagersUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultParamsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultVaultParamsUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'VaultParamsUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultWithdrawEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Withdraw',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultWithdrawalGasFeeUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalGasFeeUpdated',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalProcessed"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultWithdrawalProcessedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalProcessed',
+  })
+
+/**
+ * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalRequested"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const useWatchLedgityYieldVaultWithdrawalRequestedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalRequested',
   })
 
 /**
@@ -6127,6 +9694,2023 @@ export const watchGlobalPauseUnpausedEvent =
     abi: globalPauseAbi,
     address: globalPauseAddress,
     eventName: 'Unpaused',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVault = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"RAY"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultRay = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'RAY',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultAToken = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'aToken',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"aaveLendingPool"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultAaveLendingPool =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'aaveLendingPool',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"accountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultAccountWithdrawalFee =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'accountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"allowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultAllowance = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'allowance',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"asset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultAsset = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'asset',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"balanceOf"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultBalanceOf = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'balanceOf',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultConvertToAssets =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'convertToAssets',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"convertToShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultConvertToShares =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'convertToShares',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimals"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultDecimals = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'decimals',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decimalsOffset"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultDecimalsOffset =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decimalsOffset',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultDeploymentDelay =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'deploymentDelay',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"feeRecipient"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultFeeRecipient =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'feeRecipient',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getBufferAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetBufferAssets =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getBufferAssets',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetCcipAdmin =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getFeeData"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetFeeData = /*#__PURE__*/ createReadContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getFeeData',
+  },
+)
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getUserWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetUserWithdrawalRequests =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getUserWithdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestCount"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetWithdrawalRequestCount =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequestCount',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetWithdrawalRequests =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"getWithdrawalRequestsByIds"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGetWithdrawalRequestsByIds =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'getWithdrawalRequestsByIds',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalOwner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGlobalOwner =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalOwner',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalPause"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGlobalPause =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalPause',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"globalRestrict"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultGlobalRestrict =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'globalRestrict',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"hasBufferStrategy"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultHasBufferStrategy =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'hasBufferStrategy',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"highWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultHighWaterMark =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'highWaterMark',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isBurner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultIsBurner = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'isBurner',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isMinter"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultIsMinter = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'isMinter',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"isPausedLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultIsPausedLocal =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'isPausedLocal',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultLToken = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'lToken',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastCompoundTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultLastCompoundTime =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'lastCompoundTime',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"lastFeeTime"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultLastFeeTime =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'lastFeeTime',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultLiquidityBufferRate =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'liquidityBufferRate',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"liquidityManager"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultLiquidityManager =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'liquidityManager',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"managementFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultManagementFeeRate =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'managementFeeRate',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultMaxDeposit = /*#__PURE__*/ createReadContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxDeposit',
+  },
+)
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultMaxMint = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'maxMint',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultMaxRedeem = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'maxRedeem',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"maxWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultMaxWithdraw =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'maxWithdraw',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"name"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultName = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'name',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"owner"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultOwner = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'owner',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPaused = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'paused',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"performanceFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPerformanceFeeRate =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'performanceFeeRate',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewDeposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPreviewDeposit =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewDeposit',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewMint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPreviewMint =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewMint',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewRedeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPreviewRedeem =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewRedeem',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"previewWithdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultPreviewWithdraw =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'previewWithdraw',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"proxiableUUID"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultProxiableUuid =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'proxiableUUID',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForFeeReduction"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultStakeForFeeReduction =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeForFeeReduction',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeForInstantWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultStakeForInstantWithdrawal =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeForInstantWithdrawal',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"stakeToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultStakeToken = /*#__PURE__*/ createReadContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'stakeToken',
+  },
+)
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"symbol"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultSymbol = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'symbol',
+})
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultTotalAssets =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'totalAssets',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"totalSupply"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultTotalSupply =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'totalSupply',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalFeeRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultWithdrawalFeeRate =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalFeeRate',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultWithdrawalGasFee =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdrawalRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultWithdrawalRequests =
+  /*#__PURE__*/ createReadContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdrawalRequests',
+  })
+
+/**
+ * Wraps __{@link readContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"yieldAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const readLedgityYieldVaultYieldApr = /*#__PURE__*/ createReadContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'yieldAPR',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVault = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultApprove = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'approve',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultBurn = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'burn',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultBurnAndRemintBlacklistedShares =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultDecreaseAllowance =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decreaseAllowance',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultDeposit = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'deposit',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultDepositToBuffer =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'depositToBuffer',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultGrantBurnRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantBurnRole',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultGrantMintRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantMintRole',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultHarvestFees =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'harvestFees',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultIncreaseAllowance =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'increaseAllowance',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultInitialize =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'initialize',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultMigrateLToken =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'migrateLToken',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultMint = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'mint',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultPauseLocal =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'pauseLocal',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultProcessRequests =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRecoverErc20 =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'recoverERC20',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRedeem = /*#__PURE__*/ createWriteContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+  functionName: 'redeem',
+})
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRenounceOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRequestWithdrawal =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'requestWithdrawal',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRevokeBurnRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeBurnRole',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultRevokeMintRole =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeMintRole',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultSetAccountWithdrawalFee =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setAccountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultSetCcipAdmin =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultSetTotalAssets =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setTotalAssets',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultSkimBuffer =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'skimBuffer',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultTransfer = /*#__PURE__*/ createWriteContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transfer',
+  },
+)
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultTransferFrom =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultTransferOwnership =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUnpauseLocal =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'unpauseLocal',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateApr =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateAPR',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateBufferRate =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateBufferRate',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateDeploymentDelay =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateDeploymentDelay',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateFeeRates =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateFeeRates',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateHighWaterMark =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateHighWaterMark',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateVaultManagers =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateVaultParams =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpgradeTo =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeTo',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultUpgradeToAndCall =
+  /*#__PURE__*/ createWriteContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeToAndCall',
+  })
+
+/**
+ * Wraps __{@link writeContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const writeLedgityYieldVaultWithdraw = /*#__PURE__*/ createWriteContract(
+  {
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdraw',
+  },
+)
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVault = /*#__PURE__*/ createSimulateContract({
+  abi: ledgityYieldVaultAbi,
+  address: ledgityYieldVaultAddress,
+})
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"approve"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultApprove =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'approve',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burn"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultBurn =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burn',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"burnAndRemintBlacklistedShares"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultBurnAndRemintBlacklistedShares =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'burnAndRemintBlacklistedShares',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"decreaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultDecreaseAllowance =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'decreaseAllowance',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultDeposit =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'deposit',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"depositToBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultDepositToBuffer =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'depositToBuffer',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultGrantBurnRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantBurnRole',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"grantMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultGrantMintRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'grantMintRole',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"harvestFees"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultHarvestFees =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'harvestFees',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"increaseAllowance"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultIncreaseAllowance =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'increaseAllowance',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"initialize"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultInitialize =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'initialize',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"migrateLToken"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultMigrateLToken =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'migrateLToken',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"mint"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultMint =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'mint',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"pauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultPauseLocal =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'pauseLocal',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"processRequests"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultProcessRequests =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'processRequests',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"recoverERC20"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRecoverErc20 =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'recoverERC20',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"redeem"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRedeem =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'redeem',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"renounceOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRenounceOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'renounceOwnership',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"requestWithdrawal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRequestWithdrawal =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'requestWithdrawal',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeBurnRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRevokeBurnRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeBurnRole',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"revokeMintRole"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultRevokeMintRole =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'revokeMintRole',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setAccountWithdrawalFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultSetAccountWithdrawalFee =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setAccountWithdrawalFee',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setCCIPAdmin"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultSetCcipAdmin =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setCCIPAdmin',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"setTotalAssets"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultSetTotalAssets =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'setTotalAssets',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"skimBuffer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultSkimBuffer =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'skimBuffer',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultTransfer =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transfer',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferFrom"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultTransferFrom =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferFrom',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"transferOwnership"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultTransferOwnership =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'transferOwnership',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"unpauseLocal"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUnpauseLocal =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'unpauseLocal',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateAPR"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateApr =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateAPR',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateBufferRate"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateBufferRate =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateBufferRate',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateDeploymentDelay"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateDeploymentDelay =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateDeploymentDelay',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateFeeRates"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateFeeRates =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateFeeRates',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateHighWaterMark"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateHighWaterMark =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateHighWaterMark',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultManagers"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateVaultManagers =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultManagers',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateVaultParams"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateVaultParams =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateVaultParams',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"updateWithdrawalGasFee"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpdateWithdrawalGasFee =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'updateWithdrawalGasFee',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeTo"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpgradeTo =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeTo',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"upgradeToAndCall"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultUpgradeToAndCall =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'upgradeToAndCall',
+  })
+
+/**
+ * Wraps __{@link simulateContract}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `functionName` set to `"withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const simulateLedgityYieldVaultWithdraw =
+  /*#__PURE__*/ createSimulateContract({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    functionName: 'withdraw',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"APRUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultAprUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'APRUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AccountWithdrawalFeeSet"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultAccountWithdrawalFeeSetEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'AccountWithdrawalFeeSet',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"AdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'AdminChanged',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Approval"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultApprovalEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Approval',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BeaconUpgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultBeaconUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BeaconUpgraded',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BufferRateUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultBufferRateUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BufferRateUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultBurnAccessGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BurnAccessGranted',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"BurnAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultBurnAccessRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'BurnAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"CCIPAdminChanged"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultCcipAdminChangedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'CCIPAdminChanged',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"DeploymentDelayUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultDeploymentDelayUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'DeploymentDelayUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Deposit"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultDepositEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Deposit',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"FeeRatesUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultFeeRatesUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'FeeRatesUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"HighWaterMarkUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultHighWaterMarkUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'HighWaterMarkUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Initialized"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultInitializedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Initialized',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessGranted"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultMintAccessGrantedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'MintAccessGranted',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"MintAccessRevoked"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultMintAccessRevokedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'MintAccessRevoked',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"OwnershipTransferred"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultOwnershipTransferredEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'OwnershipTransferred',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Paused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultPausedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Paused',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"RateCheckpointUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultRateCheckpointUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'RateCheckpointUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"TotalAssetsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultTotalAssetsUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'TotalAssetsUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Transfer"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultTransferEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Transfer',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Unpaused"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultUnpausedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Unpaused',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Upgraded"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultUpgradedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Upgraded',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultManagersUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultVaultManagersUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'VaultManagersUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"VaultParamsUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultVaultParamsUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'VaultParamsUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"Withdraw"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultWithdrawEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'Withdraw',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalGasFeeUpdated"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultWithdrawalGasFeeUpdatedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalGasFeeUpdated',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalProcessed"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultWithdrawalProcessedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalProcessed',
+  })
+
+/**
+ * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ledgityYieldVaultAbi}__ and `eventName` set to `"WithdrawalRequested"`
+ *
+ * [__View Contract on Base Basescan__](https://basescan.org/address/0xbB07A03Cd34b2d844332ad8cC911Be81f93C5496)
+ */
+export const watchLedgityYieldVaultWithdrawalRequestedEvent =
+  /*#__PURE__*/ createWatchContractEvent({
+    abi: ledgityYieldVaultAbi,
+    address: ledgityYieldVaultAddress,
+    eventName: 'WithdrawalRequested',
   })
 
 /**
