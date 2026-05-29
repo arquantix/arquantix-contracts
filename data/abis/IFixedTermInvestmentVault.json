@@ -77,6 +77,13 @@
   },
   {
     "inputs": [],
+    "name": "disableMigrationMinting",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "feeRecipient",
     "outputs": [
       {
@@ -506,6 +513,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "migrationMintingEnabled",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -523,6 +543,30 @@
       {
         "internalType": "uint256",
         "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "assets",
+        "type": "uint256"
+      }
+    ],
+    "name": "mintMigrationPosition",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "shares",
         "type": "uint256"
       }
     ],

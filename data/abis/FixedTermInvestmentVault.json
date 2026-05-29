@@ -16,6 +16,11 @@
   },
   {
     "inputs": [],
+    "name": "MigrationMintingDisabled",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "MissingWithdrawalRequestFee",
     "type": "error"
   },
@@ -369,6 +374,37 @@
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "MigrationMintingPermanentlyDisabled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "assets",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "shares",
+        "type": "uint256"
+      }
+    ],
+    "name": "MigrationSharesMinted",
     "type": "event"
   },
   {
@@ -996,6 +1032,13 @@
       }
     ],
     "name": "depositToBuffer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "disableMigrationMinting",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1730,6 +1773,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "migrationMintingEnabled",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -1765,6 +1821,30 @@
       {
         "internalType": "uint256",
         "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "assets",
+        "type": "uint256"
+      }
+    ],
+    "name": "mintMigrationPosition",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "shares",
         "type": "uint256"
       }
     ],
@@ -2458,6 +2538,19 @@
     "name": "upgradeToAndCall",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vaultType",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

@@ -85,8 +85,8 @@ export async function getReferenceBaseAssetsPerShare(
     transport: http(base.rpcUrls.default.http[0]),
   });
 
-  const address = getTokenAddress(8453, symbol);
-  if (!address) return 0n;
+  const address = getTokenAddress(8453, symbol, true);
+  if (address === zeroAddress) return 0n;
 
   const result = await client.readContract({
     abi: [
