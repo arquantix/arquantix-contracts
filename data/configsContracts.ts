@@ -15,7 +15,6 @@ type VaultParams = {
   name: string;
   symbol: string;
   asset: Address;
-  lToken: Address;
   stakeToken: Address;
   stakeForFeeReduction: bigint;
   stakeForInstantWithdrawal: bigint;
@@ -183,8 +182,6 @@ export async function getParametersForVault(
       stakeForFeeReduction: chainConfig.stakeForFeeReduction,
       stakeForInstantWithdrawal: chainConfig.stakeForInstantWithdrawal,
       feeRecipient: chainConfig.feeRecipient,
-      //
-      lToken: vaultConfig.lToken,
       asset: vaultConfig.asset,
       liquidityManager: vaultConfig.liquidityManager,
       liquidityBufferRate: vaultConfig.liquidityBufferRate,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.18;
+pragma solidity ^0.8.18;
 
 // Contracts
 import { CCIPTokenModule } from "src/core/modules/CCIPTokenModule.sol";
@@ -19,7 +19,7 @@ import { IERC20Upgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC
 import { IERC4626 } from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 import { IAaveLendingPoolV3 } from "src/interfaces/IAaveLendingPoolV3.sol";
 import { IFixedTermInvestmentVault } from "src/interfaces/IFixedTermInvestmentVault.sol";
-import { ILedgityYieldVault } from "src/interfaces/ILedgityYieldVault.sol";
+import { IFixedTermInvestmentVault } from "src/interfaces/IFixedTermInvestmentVault.sol";
 import { ILedgityDataProvider } from "src/interfaces/ILedgityDataProvider.sol";
 
 /**
@@ -50,7 +50,6 @@ contract FixedTermInvestmentVault is
 
   error ZeroAmount();
   error ZeroAddress();
-  error NoLTokenSet();
   error OnlyLiquidityManager();
   error MissingWithdrawalRequestFee();
   error RequestAlreadyProcessed();
@@ -64,9 +63,6 @@ contract FixedTermInvestmentVault is
   error MigrationMintingDisabled();
 
   // ======== STORAGE ======== //
-
-  // The legacy L-Token that can be migrated to vault shares
-  IERC20 public lToken;
 
   // Address authorized to manage vault liquidity and process withdrawals
   address public liquidityManager;
@@ -102,9 +98,6 @@ contract FixedTermInvestmentVault is
   bool private _withdrawalRequestsDisabled;
   // One-way migration mint switch. Enabled by default so upgraded vaults can migrate users.
   bool private _migrationMintingDisabled;
-
-  // The vault type identifier
-  uint8 public vaultType = 2;
 
   // ======== EVENTS ======== //
 
@@ -150,14 +143,12 @@ contract FixedTermInvestmentVault is
 
   /**
    * Emitted when the vault parameters are updated
-   * @param newLToken The new L-Token address
    * @param newStakeToken The new stake token address
    * @param newStakeForFeeReduction The new stake balance for fee reduction
    * @param newStakeForInstantWithdrawal The new stake balance for instant withdrawal
    * @param newAaveLendingPool The new Aave lending pool address
    */
   event VaultParamsUpdated(
-    IERC20 indexed newLToken,
     IERC20 indexed newStakeToken,
     uint256 newStakeForFeeReduction,
     uint256 newStakeForInstantWithdrawal,
@@ -216,7 +207,6 @@ contract FixedTermInvestmentVault is
     liquidityManager = params.liquidityManager;
     feeRecipient = params.feeRecipient;
 
-    lToken = params.lToken;
     stakeToken = params.stakeToken;
     stakeForFeeReduction = params.stakeForFeeReduction;
     stakeForInstantWithdrawal = params.stakeForInstantWithdrawal;
@@ -653,38 +643,6 @@ contract FixedTermInvestmentVault is
   // ======== WRITE FUNCTIONS ======== //
 
   /**
-   * @notice Migrate legacy L-Tokens to vault shares at 1:1 rate
-   * @param amount Amount of L-Tokens to migrate
-   * @return shares Amount of vault shares minted
-   * @dev No maturity impact applied since capital remains deployed
-   */
-  function migrateLToken(
-    uint256 amount
-  )
-    public
-    whenNotPaused
-    notRestricted(msg.sender)
-    returns (uint256 shares)
-  {
-    if (address(lToken) == address(0)) revert NoLTokenSet();
-    if (amount == 0) revert ZeroAmount();
-
-    // Take fees before processing
-    harvestFees();
-
-    lToken.safeTransferFrom(msg.sender, liquidityManager, amount);
-
-    // Calculate shares amount using updated rate (treat L-Tokens same as underlying)
-    /// @dev No maturity impact on migration since the capital stays deployed
-    shares = convertToShares(amount);
-
-    _addAssets(amount);
-    _mint(msg.sender, shares);
-
-    emit Deposit(msg.sender, msg.sender, amount, shares);
-  }
-
-  /**
    * @notice Deposit assets (underlying) and mint shares (shares tokens) to receiver
    * @param assets The amount of underlying to deposit
    * @param receiver The address to receive the minted shares
@@ -695,7 +653,7 @@ contract FixedTermInvestmentVault is
     address receiver
   )
     public
-    override(ERC4626Upgradeable, ILedgityYieldVault)
+    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
     returns (uint256)
   {
     return _depositToVault(msg.sender, receiver, assets, 0);
@@ -712,7 +670,7 @@ contract FixedTermInvestmentVault is
     address receiver
   )
     public
-    override(ERC4626Upgradeable, ILedgityYieldVault)
+    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
     returns (uint256)
   {
     return
@@ -737,7 +695,7 @@ contract FixedTermInvestmentVault is
     address owner_
   )
     public
-    override(ERC4626Upgradeable, ILedgityYieldVault)
+    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
     returns (uint256)
   {
     return
@@ -763,7 +721,7 @@ contract FixedTermInvestmentVault is
     address owner_
   )
     public
-    override(ERC4626Upgradeable, ILedgityYieldVault)
+    override(ERC4626Upgradeable, IFixedTermInvestmentVault)
     returns (uint256)
   {
     return
@@ -1069,7 +1027,6 @@ contract FixedTermInvestmentVault is
 
   /**
    * @notice Updates vault parameters
-   * @param newLToken The new L-Token address
    * @param newStakeToken The new stake token address
    * @param newStakeForFeeReduction The new stake balance for fee reduction
    * @param newStakeForInstantWithdrawal The new stake balance for instant withdrawal
@@ -1077,13 +1034,11 @@ contract FixedTermInvestmentVault is
    * @dev Only callable by global owner
    */
   function updateVaultParams(
-    IERC20 newLToken,
     IERC20 newStakeToken,
     uint256 newStakeForFeeReduction,
     uint256 newStakeForInstantWithdrawal,
     IAaveLendingPoolV3 newAaveLendingPool
   ) public onlyOwner {
-    lToken = newLToken;
     stakeToken = newStakeToken;
 
     stakeForFeeReduction = newStakeForFeeReduction;
@@ -1092,7 +1047,6 @@ contract FixedTermInvestmentVault is
     _setupBufferStrategy(newAaveLendingPool);
 
     emit VaultParamsUpdated(
-      newLToken,
       newStakeToken,
       newStakeForFeeReduction,
       newStakeForInstantWithdrawal,
