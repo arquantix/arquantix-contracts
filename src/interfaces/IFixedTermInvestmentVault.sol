@@ -25,6 +25,15 @@ interface IFixedTermInvestmentVault is ILedgityYieldVault {
 
   function withdrawalRequestsEnabled() external view returns (bool);
 
+  function migrationMintingEnabled() external view returns (bool);
+
+  function mintMigrationPosition(
+    address account,
+    uint256 assets
+  ) external returns (uint256 shares);
+
+  function disableMigrationMinting() external;
+
   function updateWithdrawalRequestsEnabled(bool enabled) external;
 
   function cancelPendingWithdrawalRequests(

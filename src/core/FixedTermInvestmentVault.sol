@@ -61,6 +61,7 @@ contract FixedTermInvestmentVault is
   error OperationNotEnded();
   error WithdrawalRequestsDisabled();
   error WithdrawalRequestSharesUnavailable();
+  error MigrationMintingDisabled();
 
   // ======== STORAGE ======== //
 
@@ -99,6 +100,8 @@ contract FixedTermInvestmentVault is
   mapping(uint256 => uint256) public withdrawalRequestShares;
   // Inverted flag keeps withdrawal requests enabled by default for upgrade compatibility.
   bool private _withdrawalRequestsDisabled;
+  // One-way migration mint switch. Enabled by default so upgraded vaults can migrate users.
+  bool private _migrationMintingDisabled;
 
   // The vault type identifier
   uint8 public vaultType = 2;
@@ -160,6 +163,23 @@ contract FixedTermInvestmentVault is
     uint256 newStakeForInstantWithdrawal,
     IAaveLendingPoolV3 indexed newAaveLendingPool
   );
+
+  /**
+   * Emitted when migration shares are minted manually by the owner.
+   * @param account Address receiving the migrated vault shares
+   * @param assets Amount of vault assets added to accounting
+   * @param shares Amount of vault shares minted
+   */
+  event MigrationSharesMinted(
+    address indexed account,
+    uint256 assets,
+    uint256 shares
+  );
+
+  /**
+   * Emitted when manual migration minting is permanently disabled.
+   */
+  event MigrationMintingPermanentlyDisabled();
 
   // ======== INITIALIZE ======== //
 
@@ -391,6 +411,30 @@ contract FixedTermInvestmentVault is
     returns (uint256)
   {
     return withdrawalRequests.length;
+  }
+
+  /**
+   * @notice Return whether users can create withdrawal requests.
+   * @return enabled True when new withdrawal requests are accepted.
+   */
+  function withdrawalRequestsEnabled()
+    public
+    view
+    returns (bool enabled)
+  {
+    return !_withdrawalRequestsDisabled;
+  }
+
+  /**
+   * @notice Return whether the owner can still mint migration shares manually.
+   * @return enabled True when manual migration minting is still available.
+   */
+  function migrationMintingEnabled()
+    public
+    view
+    returns (bool enabled)
+  {
+    return !_migrationMintingDisabled;
   }
 
   // ======== INTERNAL HELPERS ======== //
@@ -818,15 +862,39 @@ contract FixedTermInvestmentVault is
   }
 
   /**
-   * @notice Return whether users can create withdrawal requests.
-   * @return enabled True when new withdrawal requests are accepted.
+   * @notice Mint vault shares for an off-chain migration position.
+   * @param account Address receiving the migrated shares.
+   * @param assets Amount of migrated position assets to add to vault accounting.
+   * @return shares Amount of vault shares minted.
+   * @dev Owner-only migration helper. The function adds the current asset value of the
+   *      migrated position and mints the corresponding shares at the current rate. Disable
+   *      it permanently with `disableMigrationMinting` after the migration is complete.
    */
-  function withdrawalRequestsEnabled()
-    public
-    view
-    returns (bool enabled)
-  {
-    return !_withdrawalRequestsDisabled;
+  function mintMigrationPosition(
+    address account,
+    uint256 assets
+  ) external onlyOwner whenNotPaused returns (uint256 shares) {
+    if (_migrationMintingDisabled) revert MigrationMintingDisabled();
+    if (account == address(0)) revert ZeroAddress();
+    if (assets == 0) revert ZeroAmount();
+
+    harvestFees();
+
+    shares = convertToShares(assets);
+    _addAssets(assets);
+    _mint(account, shares);
+
+    emit MigrationSharesMinted(account, assets, shares);
+  }
+
+  /**
+   * @notice Permanently disable owner manual migration minting.
+   * @dev This is one-way to reduce the post-migration privileged minting surface.
+   */
+  function disableMigrationMinting() external onlyOwner {
+    _migrationMintingDisabled = true;
+
+    emit MigrationMintingPermanentlyDisabled();
   }
 
   /**
