@@ -1,15 +1,16 @@
 import fs from "fs";
 import {
   Address,
-  parseUnits,
-  zeroAddress,
-  isAddress,
   createPublicClient,
   http,
+  isAddress,
+  parseUnits,
+  zeroAddress,
 } from "viem";
+import { base } from "viem/chains";
+import { apyToRayApr } from "../functions/helpers";
 import { dependencies } from "./dependencies";
 import deployedContracts from "./deployments.json";
-import { base } from "viem/chains";
 
 type VaultParams = {
   name: string;
@@ -263,7 +264,7 @@ const configsContracts: {
         initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
         highWaterMark: 0n, // defaults to 1:1 ratio
         deploymentDelay: 0, // days
-        yieldAPR: toRay(8), // 8% APR in RAY
+        yieldAPR: apyToRayApr(8), // 8% APR in RAY
         managementFeeRate: 0n,
         performanceFeeRate: 0n,
         withdrawalFeeRate: 0n,
@@ -279,7 +280,7 @@ const configsContracts: {
         initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
         highWaterMark: 0n, // defaults to 1:1 ratio
         deploymentDelay: 0, // days
-        yieldAPR: toRay(12), // 12% APR in RAY
+        yieldAPR: apyToRayApr(12), // 12% APR in RAY
         managementFeeRate: 0n,
         performanceFeeRate: 0n,
         withdrawalFeeRate: 0n,
@@ -295,7 +296,7 @@ const configsContracts: {
         initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
         highWaterMark: 0n, // defaults to 1:1 ratio
         deploymentDelay: 0, // days
-        yieldAPR: toRay(11), // 11% APR in RAY
+        yieldAPR: apyToRayApr(11), // 11% APR in RAY
         managementFeeRate: 0n,
         performanceFeeRate: 0n,
         withdrawalFeeRate: 0n,
