@@ -148,7 +148,7 @@ export function getGeneralChainConfig(chainId: number) {
 export async function getParametersForVault(
   chainId: number,
   name: string,
-  symbol: "axUSD",
+  symbol: string,
   globalOwner: Address,
   globalPause: Address,
   globalAccessList: Address,
@@ -252,6 +252,54 @@ const configsContracts: {
         performanceFeeRate: toRay(10), // 10% in RAY
         withdrawalFeeRate: 0n,
         withdrawalGasFee: parseUnits("0.001", 18), // 0.001 ETH async withdrawal gas fee
+      },
+      vfEUR: {
+        asset: getTokenAddress(8453, "EURC"),
+        lToken: zeroAddress,
+        liquidityBufferRate: toRay(10), // 10% idle reserve
+        liquidityManager: "0xE76815ffF04652EF66Ba433332C22B61f7374384",
+        aaveLendingPool: dependencies["8453"].AAVE_LENDING_POOL,
+        //
+        initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
+        highWaterMark: 0n, // defaults to 1:1 ratio
+        deploymentDelay: 0, // days
+        yieldAPR: toRay(8), // 8% APR in RAY
+        managementFeeRate: 0n,
+        performanceFeeRate: 0n,
+        withdrawalFeeRate: 0n,
+        withdrawalGasFee: 0n, // no async withdrawal gas fee
+      },
+      axDUBAI: {
+        asset: getTokenAddress(8453, "EURC"),
+        lToken: zeroAddress,
+        liquidityBufferRate: 0n, // 100% deployed, no idle reserve
+        liquidityManager: "0x9F871a99E7e6f77ECFe679851c9D9f38BD69b435",
+        aaveLendingPool: dependencies["8453"].AAVE_LENDING_POOL,
+        //
+        initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
+        highWaterMark: 0n, // defaults to 1:1 ratio
+        deploymentDelay: 0, // days
+        yieldAPR: toRay(12), // 12% APR in RAY
+        managementFeeRate: 0n,
+        performanceFeeRate: 0n,
+        withdrawalFeeRate: 0n,
+        withdrawalGasFee: 0n, // no async withdrawal gas fee
+      },
+      axBALI: {
+        asset: getTokenAddress(8453, "EURC"),
+        lToken: zeroAddress,
+        liquidityBufferRate: 0n, // 100% deployed, no idle reserve
+        liquidityManager: "0x586B9346F1b1172439FBA552e600DF79bB142F70",
+        aaveLendingPool: dependencies["8453"].AAVE_LENDING_POOL,
+        //
+        initialAssetsPerShare: parseUnits("1", 6), // 1 EURC per share (1:1 at launch)
+        highWaterMark: 0n, // defaults to 1:1 ratio
+        deploymentDelay: 0, // days
+        yieldAPR: toRay(11), // 11% APR in RAY
+        managementFeeRate: 0n,
+        performanceFeeRate: 0n,
+        withdrawalFeeRate: 0n,
+        withdrawalGasFee: 0n, // no async withdrawal gas fee
       },
     },
   },
