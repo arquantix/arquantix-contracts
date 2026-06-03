@@ -5,8 +5,8 @@ import {
   writeTempTokenAddress,
 } from "../../../data/configsContracts";
 
-const VAULT_TOKEN_NAME = "Arquantix Yield USDC";
-const VAULT_TOKEN_SYMBOL = "axUSD";
+const VAULT_TOKEN_NAME = "Arquantix Dubai";
+const VAULT_TOKEN_SYMBOL = "axDUBAI";
 
 export default async function deploy({
   getNamedAccounts,
@@ -39,17 +39,16 @@ export default async function deploy({
 
   // Deploy the LToken
   const result = await deployments.deploy(VAULT_TOKEN_SYMBOL, {
-    contract: "LedgityYieldVault",
+    contract: "FixedTermInvestmentVault",
     from: deployer,
     log: true,
     waitConfirmations: 3,
-    skipIfAlreadyDeployed: true,
     libraries: {
       LedgityDataProvider: ledgityDataProviderLib,
     },
     proxy: {
       proxyContract: "UUPS",
-      implementationName: "LedgityYieldVault_Implementation",
+      implementationName: "FixedTermInvestmentVault_Implementation",
       execute: {
         init: {
           methodName: "initialize",
