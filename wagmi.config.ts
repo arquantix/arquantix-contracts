@@ -6,10 +6,9 @@ const contractList = [
   "GlobalOwner",
   "GlobalPause",
   "GlobalAccessList",
-  "LedgityYieldVault",
-  "GenericERC20",
-  "axUSD",
-  "FixedTermInvestmentVault",
+  // Implementations
+  "LedgityYieldVault_Implementation",
+  "FixedTermInvestmentVault_Implementation",
 ];
 
 console.log(
@@ -30,13 +29,19 @@ for (const chainId in deployedContracts) {
   if (!contractsData) continue;
 
   for (const [name, data] of Object.entries(contractsData)) {
-    const cleanName = name.replace("_Proxy", "").replace("_Implementation", "");
-    if (!contractList.includes(cleanName)) continue;
+    const baseContractName = name.replace("_Proxy", "");
+    if (!contractList.includes(baseContractName)) continue;
 
+    // Normalize Sonic & implementation contracts
+    const cleanName = name.replace("_Implementation", "").replace("_Proxy", "");
     const chainNumber = Number(chainId);
     if (!contractMap[cleanName]) {
       contractMap[cleanName] = { abi: (data as any).abi, address: {} };
     }
+
+    // Skip implementation addresses as we use proxy for calls
+    if (name.includes("_Implementation")) continue;
+
     contractMap[cleanName].address[chainNumber] = (data as any).address;
   }
 }
